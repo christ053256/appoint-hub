@@ -1,1 +1,1 @@
-#Gi delete nako ang frontend-new folder
+# Gi delete nako ang frontend-new folder
