@@ -1,7 +1,8 @@
 .about-container {
     display: flex;
     height: 90vh;
-    background-color: #a2e3f5;
+    /* background-color: #a2e3f5; */
+    background-color: pink;
     z-index: 1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png'); /* Path to your leaves image */
     background-size: 90rem; /* Make the image cover the entire screen */
