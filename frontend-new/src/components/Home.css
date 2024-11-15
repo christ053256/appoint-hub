@@ -1,0 +1,127 @@
+.home-container {
+    display: flex;
+    height: 90vh;
+    background-color: #a2e3f5;
+    z-index: 1; /* Make sure the content sits above the background */
+    background-image: url('../assets/bg.png'); /* Path to your leaves image */
+    background-size: 75rem; /* Make the image cover the entire screen */
+    background-position-y: -130px;
+    background-position-x: 350px;
+
+
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    
+}
+
+
+.home-left {
+    flex: 1;
+    margin-top: 23vh;
+    margin-left: 90px;
+}
+
+.home-right {
+    flex: 1;
+}
+
+/* 8 CARE */
+.home-e, .home-care {
+    font-family: Outfit;
+    font-size: 150px;
+    font-style: normal;
+    letter-spacing: 0.48px;
+    margin: 0;  /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    line-height: 15px; /* Control line height */
+
+
+}
+
+.home-e {
+    color: #272E6C;
+    font-weight: 200;
+}
+
+.home-care {
+    color: #3946B5;
+    font-weight: 600;
+}
+
+/* DENTAL CLINIC */
+.home-clinic {
+    color: #272E6C;
+    font-family: Outfit;
+    font-size: 70px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125.994%; /* 88.196px */
+    letter-spacing: 0.7px;
+}
+
+
+
+/* SLOGAN */
+.home-slogan {
+    color: #272E6C;
+    font-family: Outfit;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 125.994%; /* 35.278px */
+    letter-spacing: 0.28px;
+}
+
+
+
+
+
+
+/* BUTTONS */
+
+.home-buttons {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 15px; /* Space between buttons */
+    height: 55px;
+}
+
+.home-appointment {
+    background-color: #3946B5;
+    color: white;
+    
+
+}
+
+.home-services {
+    color: #3946B5;
+}
+
+.home-appointment, .home-services {
+    font-family: Outfit;
+    font-size: 20px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 20px;
+}
+
+.home-appointment:hover  {
+    background-color: #272E6C; /* Darker color on hover */
+}
+
+.home-services:hover {
+    background-color: #3946B5; /* Darker color on hover */
+    color: white;
+}
+
+
+
+@media screen {
+    
+}
+
+
+
+

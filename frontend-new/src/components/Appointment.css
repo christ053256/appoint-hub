@@ -1,0 +1,93 @@
+.appointment-container {
+    display: flex;
+    height: 90vh;
+    background-color: #a2e3f5;
+    z-index: 1; /* Make sure the content sits above the background */
+    background-image: url('../assets/bg.png'); /* Path to your leaves image */
+    background-size: 60rem; /* Make the image cover the entire screen */
+    background-position-y: 30px;
+    background-position-x: 580px;
+
+
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+
+
+    justify-content: center;
+    overflow-y: auto; /* This will add a vertical scrollbar when needed */
+
+
+}
+
+
+.form-container {
+    display: flex;
+    margin-top: 15px;
+    border-radius: 20px;
+    width: 50%;
+    height: 600px;
+    flex-shrink: 0;
+    background-color: #fff;
+    flex-direction: column;
+}
+
+.appointment-title {
+    width: 100%;
+    clear: both;
+    text-align: center;
+
+}
+
+.appointment-content {
+    display: flex; /* Makes left and right side align horizontally */
+    gap: 20px; /* Adds spacing between left and right content */
+    margin-top: 20px; /* Adds spacing below the title */
+    margin-left: 19px;
+    margin-right: 19px;
+}
+
+.appointment-content h3 {
+    align-self: flex-start; /* Aligns the <h3> title to the top (left in a flex row) */
+}
+
+.appointment-content input {
+    margin-top: 10px;
+height: 22.175px;
+border-radius: 10px;
+border: 1px solid #555;
+
+}
+
+
+
+.appointment-left {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+
+.appointment-right {
+    flex: 1;
+    
+}
+
+
+.appointment-div1 {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Adds space between "First Name" and "Suffix" fields */
+}
+
+.appointment-div1 .form {
+    flex: 1; /* Makes "First Name" and "Suffix" fields equal width */
+}
+
+
+
+
+
+
