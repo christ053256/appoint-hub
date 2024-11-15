@@ -1,2 +1,1 @@
-# appoint-hub
- csc107 final project
+#Gi delete nako ang frontend-new folder
