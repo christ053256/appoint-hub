@@ -201,10 +201,24 @@ function Appointment() {
                         <div className="appointment-right">
                             <h3 className="appointment-branch">Branch</h3>
                             <div className="branch-button">
-                                <button onClick={() => handleBranch("Butuan")}>
+                                <button
+                                    onClick={() => handleBranch("Butuan")}
+                                    className={
+                                        selectedBranch === "Butuan"
+                                            ? "active"
+                                            : ""
+                                    }
+                                >
                                     Butuan
                                 </button>
-                                <button onClick={() => handleBranch("Gingoog")}>
+                                <button
+                                    onClick={() => handleBranch("Gingoog")}
+                                    className={
+                                        selectedBranch === "Gingoog"
+                                            ? "active"
+                                            : ""
+                                    }
+                                >
                                     Gingoog
                                 </button>
                             </div>
@@ -213,6 +227,7 @@ function Appointment() {
                             </h3>
 
                             <DatePicker
+                                className="appointment-datepicker"
                                 placeholderText="MM/DD/YYYY"
                                 selected={selectedAppointmentDate}
                                 onChange={handleAppointDate}
@@ -236,9 +251,7 @@ function Appointment() {
                                     value={selectedService} // Bind the selected service to state
                                     onChange={handleServiceChange} // Handle dropdown change
                                 >
-                                    <option value="">
-                                        --Select a Service--
-                                    </option>
+                                    <option value="">--Select Service--</option>
                                     {services.map((service, index) => (
                                         <option key={index} value={service}>
                                             {service}
@@ -247,12 +260,15 @@ function Appointment() {
                                 </select>
                             </form>
 
+                            <div className="appointment-submit">
                             <button
                                 onClick={handleSubmit}
                                 className="set-appointment-button"
                             >
                                 SET APPOINTMENT
                             </button>
+                            </div>
+   
                         </div>
                     </div>
                 </div>
