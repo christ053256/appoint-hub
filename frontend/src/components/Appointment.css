@@ -17,7 +17,6 @@
 
     background-repeat: no-repeat; /* Prevent the image from repeating */
 
-
     justify-content: center;
     overflow-y: auto; /* This will add a vertical scrollbar when needed */
 
@@ -38,7 +37,8 @@
 }
 
 .appointment-title {
-    margin-top: 25px;
+    margin-top: 30px;
+    margin-bottom: 20px;
     width: 100%;
     clear: both;
     text-align: center;
@@ -49,7 +49,7 @@
 .appointment-content {
     display: flex; /* Makes left and right side align horizontally */
     gap: 20px; /* Adds spacing between left and right content */
-    margin-top: 20px; /* Adds spacing below the title */
+    /* margin-top: 20px; */
     margin-left: 19px;
     margin-right: 19px;
 }
@@ -57,13 +57,13 @@
 .appointment-content h3 {
     align-self: flex-start; /* Aligns the <h3> title to the top (left in a flex row) */
     color: #133E87;
-font-family: Outfit;
-font-weight: 400;
+    font-family: Outfit;
+    font-weight: 400;
 
 }
 
 .appointment-content input {
-    margin-top: 10px;
+    /* margin-top: 10px; */
 height: 22.175px;
 border-radius: 15px;
 border: 1px solid #555;
@@ -94,14 +94,15 @@ padding: 0 0 0 10px;
 .appointment-div1 {
     display: flex;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 
 .appointment-div1 input {
     margin-top: 20px;
-    height: 30px;
+    height: 36px;
 
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     padding: 0 0 0 10px;
 
 
@@ -124,9 +125,9 @@ padding: 0 0 0 10px;
     display: flex;
     flex-direction: row;
     width: 350px;
-height: 30px;
-flex-shrink: 0;
-margin-bottom: 20px;
+    height: 36px;
+    flex-shrink: 0;
+    margin-bottom: 20px;
 }
 
 
@@ -141,27 +142,34 @@ margin-bottom: 20px;
 }
 
 .branch-button button {
+    font-size: 16px;
     margin: 10px;
     width: 130px;
     height: 30px;
     cursor: pointer;
     border-radius: 20px;
-border: 1px solid #555;
-background-color: white;
+    border: 1px solid #727272; /* Border styling */
+    background-color: #f0f0f0; /* Light gray background */
+    color: black; /* Default text color */
+    transition: all 0.3s ease;
+
+
+
 }
+
+
 
 
 /* Hover Effect */
 .branch-button button:hover {
-    background-color: #3946B5; /* Dark blue background */
+    background-color: #2e3894; /* Dark blue background */
     color: white; /* White text */
 }
 
 /* Active Effect */
-.branch-button button:active {
-    background-color: #2e3894; /* Slightly darker blue for active state */
-    color: white; /* Maintain white text */
-    transform: scale(0.98); /* Adds a subtle press effect */
+.branch-button button.active {
+    background-color: #3946B5; /* Same as hover color */
+    color: white; /* White text */
 }
 
 .appointment-branch {
@@ -171,6 +179,12 @@ background-color: white;
 .appointment-date {
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+.appointment-datepicker {
+    width: 350px;
+    height: 36px !important; /* Force the height */
+
 }
 
 .appointment-services {
@@ -183,7 +197,7 @@ background-color: white;
     display: flex;
     flex-direction: row;
     width: 350px;
-    height: 30px;
+    height: 36px;
     flex-shrink: 0;
     margin-bottom: 20px;
     margin-top: 10px;
@@ -193,7 +207,14 @@ background-color: white;
 }
 
 
+
+.appointment-submit {
+    display: flex;
+    justify-content: center;
+}
+
 .set-appointment-button {
+    
     margin-top: 50px;
     width: 320px;
     height: 50px;
@@ -211,6 +232,12 @@ background-color: white;
     align-items: center;
     cursor: pointer;
     padding: 10px 0;
+}
+
+.set-appointment-button:hover {
+    background-color: #2e3894; /* Slightly darker blue for active state */
+    color: white; /* Maintain white text */
+    transform: scale(0.98); /* Adds a subtle press effect */
 }
 
 
