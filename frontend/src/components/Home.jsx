@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Home.css";
-import background from "../assets/bg.png";
-
+console.log(window.innerWidth);
+console.log(window.innerHeight);
 function Home() {
     return (
         <div className="bg">

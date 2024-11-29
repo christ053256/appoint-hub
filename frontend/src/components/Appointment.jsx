@@ -233,8 +233,25 @@ function Appointment() {
                                 onChange={handleAppointDate}
                                 showTimeSelect
                                 dateFormat="Pp"
-                                minTime={new Date().setHours(8, 0, 0, 0)} // 8 AM
-                                maxTime={new Date().setHours(18, 0, 0, 0)} // 6 PM
+                                minTime={
+                                    selectedAppointmentDate &&
+                                    new Date(selectedAppointmentDate).setHours(
+                                        8,
+                                        0,
+                                        0,
+                                        0
+                                    ) // 8 AM
+                                }
+                                maxTime={
+                                    selectedAppointmentDate &&
+                                    new Date(selectedAppointmentDate).setHours(
+                                        18,
+                                        0,
+                                        0,
+                                        0
+                                    ) // 6 PM
+                                }
+                                minDate={new Date()} // Disallow dates before today
                             />
 
                             <h3 className="appointment-services">
@@ -261,14 +278,13 @@ function Appointment() {
                             </form>
 
                             <div className="appointment-submit">
-                            <button
-                                onClick={handleSubmit}
-                                className="set-appointment-button"
-                            >
-                                SET APPOINTMENT
-                            </button>
+                                <button
+                                    onClick={handleSubmit}
+                                    className="set-appointment-button"
+                                >
+                                    SET APPOINTMENT
+                                </button>
                             </div>
-   
                         </div>
                     </div>
                 </div>
