@@ -5,7 +5,6 @@ import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker style
 import { sendAppointmentData } from "../firebase";
 
 
-
 function Appointment() {
     const [selectedBirthDate, setSelectedBirthDate] = useState("");
     const [selectedAppointmentDate, setAppointmentDate] = useState("");
