@@ -2,18 +2,9 @@ import React, { useState } from "react";
 import "./Appointment.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker styles
+import { sendAppointmentData } from "../firebase";
 
-// const handleTimeChange = (event) => {
-//     setSelectedTime(event.target.value);
 
-// const handleSubmit = () => {
-//     if (selectedDate) {
-//         const combinedDate = new Date(selectedDate);
-//         const [hours, minutes] = selectedTime.split(":").map(Number);
-//         combinedDate.setHours(hours, minutes);
-//         console.log("Selected Date and Time:", combinedDate);
-//     }
-// };
 
 function Appointment() {
     const [selectedBirthDate, setSelectedBirthDate] = useState("");
@@ -30,7 +21,9 @@ function Appointment() {
     const [selectedBranch, setBranch] = useState("");
     const services = ["Service 1", "Service 2", "Service 3"];
     const [selectedService, setSelectedService] = useState("");
+    const [message, setMessage] = useState('');
 
+    
     // Handle the change event for the dropdown
 
     const handleBirthDate = (date) => {
@@ -92,24 +85,34 @@ function Appointment() {
         setSelectedService(event.target.value);
     };
 
-    const handleSubmit = (event) => {
-        console.log("Form submitted");
-        // Handle further logic like form submission to API/database, etc.
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const appointment = {
+            id: Date.now().toString(),
+            first_name: firstName,
+            middle_name: middleName,
+            last_name: lastName,
+            suffix: Suffix,
+            age: Age,
+            birtDate: selectedBirthDate,
+            steetBuilding: streetBuilding,
+            barangay: Barangay,
+            city: City,
+            contact_number: contactNumber,
+            selectedService: selectedService,
+            selectedBranch: selectedBranch,
+            appointmentDate: selectedAppointmentDate,
+        };
+    
+        try {
+            // Send the data to Firebase using the sendAppointmentData function
+            await sendAppointmentData(appointment);
+            setMessage('Appointment added successfully!');
+        } catch (error) {
+            setMessage('Error adding appointment: ' + error.message);
+        }
     };
-
-    console.log(`
-        ${firstName} ${middleName} ${lastName} ${Suffix}
-        ${Age} 
-        ${selectedBirthDate}
-        ${streetBuilding} 
-        ${Barangay}
-        ${City}
-        ${contactNumber}
-        ${selectedService}
-        ${selectedBranch}
-        ${selectedAppointmentDate}
-        `);
-
+    console.log(message);
     //handleSubmit--- nalang need dataBase
     return (
         <div>
