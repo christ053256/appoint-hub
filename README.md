@@ -1,6 +1,10 @@
 # New to this file
 
 - Database setup using firebase
+# Tasks to Complete
+- [ ] Fetch Data
+- [ ] Remove Data
+- [x] Send Data
 
 ## If a problem occurs, please try the steps below
 - cd frontend
