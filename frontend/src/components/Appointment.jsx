@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import "./Appointment.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker styles
 import { sendAppointmentData } from "../firebase";
-
 
 function Appointment() {
     const [selectedBirthDate, setSelectedBirthDate] = useState("");
@@ -20,11 +21,13 @@ function Appointment() {
     const [selectedBranch, setBranch] = useState("");
     const services = ["Service 1", "Service 2", "Service 3"];
     const [selectedService, setSelectedService] = useState("");
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState("");
 
-    
+    //navigate
+    const navigate = useNavigate();
+
+
     // Handle the change event for the dropdown
-
     const handleBirthDate = (date) => {
         if (!date) {
             setSelectedBirthDate("");
@@ -102,14 +105,15 @@ function Appointment() {
             selectedBranch: selectedBranch,
             appointmentDate: selectedAppointmentDate,
         };
-    
+
         try {
             // Send the data to Firebase using the sendAppointmentData function
             await sendAppointmentData(appointment);
-            setMessage('Appointment added successfully!');
+            setMessage("Appointment added successfully!");
         } catch (error) {
-            setMessage('Error adding appointment: ' + error.message);
+            setMessage("Error adding appointment: " + error.message);
         }
+        navigate("/confirmation");
     };
     console.log(message);
     //handleSubmit--- nalang need dataBase
@@ -278,14 +282,15 @@ function Appointment() {
                                     ))}
                                 </select>
                             </form>
-
                             <div className="appointment-submit">
-                                <button
-                                    onClick={handleSubmit}
-                                    className="set-appointment-button"
-                                >
-                                    SET APPOINTMENT
-                                </button>
+                                <Link to="/confirmation">
+                                    <button
+                                        onClick={handleSubmit}
+                                        className="set-appointment-button"
+                                    >
+                                        SET APPOINTMENT
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>

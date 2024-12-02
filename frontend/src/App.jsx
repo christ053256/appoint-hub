@@ -1,7 +1,14 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import { Home, Contact, About, Appointment, Services } from "./components";
+import {
+    Home,
+    Contact,
+    About,
+    Appointment,
+    Services,
+    Confirmation,
+} from "./components";
 
 function App() {
     return (
@@ -13,6 +20,7 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/appointment" element={<Appointment />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/confirmation" element={<Confirmation />} />
             </Routes>
         </div>
     );
