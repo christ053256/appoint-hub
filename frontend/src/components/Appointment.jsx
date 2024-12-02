@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from 'react';
 import "./Appointment.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker styles
@@ -86,32 +87,60 @@ function Appointment() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const appointment = {
-            id: Date.now().toString(),
-            first_name: firstName,
-            middle_name: middleName,
-            last_name: lastName,
-            suffix: Suffix,
-            age: Age,
-            birtDate: selectedBirthDate,
-            steetBuilding: streetBuilding,
-            barangay: Barangay,
-            city: City,
-            contact_number: contactNumber,
-            selectedService: selectedService,
-            selectedBranch: selectedBranch,
-            appointmentDate: selectedAppointmentDate,
-        };
-    
-        try {
-            // Send the data to Firebase using the sendAppointmentData function
-            await sendAppointmentData(appointment);
-            setMessage('Appointment added successfully!');
-        } catch (error) {
-            setMessage('Error adding appointment: ' + error.message);
+        if(
+            firstName && 
+            lastName && 
+            selectedBirthDate && 
+            streetBuilding &&
+            Barangay &&
+            City &&
+            contactNumber &&
+            selectedService &&
+            selectedBranch &&
+            selectedAppointmentDate
+        ){
+            const appointment = {
+                id: Date.now().toString(),
+                first_name: firstName,
+                middle_name: middleName,
+                last_name: lastName,
+                suffix: Suffix,
+                age: Age,
+                birtDate: selectedBirthDate,
+                steetBuilding: streetBuilding,
+                barangay: Barangay,
+                city: City,
+                contact_number: contactNumber,
+                selectedService: selectedService,
+                selectedBranch: selectedBranch,
+                appointmentDate: selectedAppointmentDate,
+                appointmentCreated: Date(),
+            };
+        
+            try {
+                // Send the data to Firebase using the sendAppointmentData function
+                await sendAppointmentData(appointment);
+                setMessage('Appointment added successfully!');
+            } catch (error) {
+                setMessage('Error adding appointment: ' + error.message);
+            }
+        }else{
+            alert('Please fill all the form');
         }
     };
-    console.log(message);
+
+    // Log the message when it changes
+    useEffect(() => {
+        if (message.length) {
+            console.log(message);
+            setMessage(''); // Optional: reset the message after logging it
+        }
+    }, [message]); // This hook will run every time `message` changes
+
+    setTimeout(() => {
+        setMessage('');
+    }, 1500);
+    
     //handleSubmit--- nalang need dataBase
     return (
         <div>
