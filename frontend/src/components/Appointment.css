@@ -220,6 +220,10 @@ padding: 0 0 0 10px;
 
 }
 
+Link {
+    text-decoration: none;
+}
+
 .set-appointment-button {
     
     margin-top: 50px;

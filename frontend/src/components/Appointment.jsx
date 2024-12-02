@@ -315,14 +315,12 @@ function Appointment() {
                                 </select>
                             </form>
                             <div className="appointment-submit">
-                                <Link to="/confirmation">
-                                    <button
-                                        onClick={handleSubmit}
-                                        className="set-appointment-button"
-                                    >
-                                        SET APPOINTMENT
-                                    </button>
-                                </Link>
+                                <button
+                                    onClick={handleSubmit}
+                                    className="set-appointment-button"
+                                >
+                                    SET APPOINTMENT
+                                </button>
                             </div>
                         </div>
                     </div>
