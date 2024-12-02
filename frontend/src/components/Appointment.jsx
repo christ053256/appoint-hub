@@ -75,7 +75,12 @@ function Appointment() {
     };
 
     const handleContactNumber = (event) => {
-        setContactNumber(event.target.value);
+        const input = event.target.value;
+
+        // Allow only numeric characters and ensure the length is 11 or less
+        if (/^\d{0,11}$/.test(input)) {
+            setContactNumber(input);
+        }
     };
 
     const handleBranch = (branchName) => {
