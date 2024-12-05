@@ -6,9 +6,15 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker styles
 import { sendAppointmentData } from "../firebase";
 
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+
+// Import libphonenumber-js
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+
 function Appointment() {
     const [selectedBirthDate, setSelectedBirthDate] = useState("");
-    const [selectedAppointmentDate, setAppointmentDate] = useState("");
+    const [selectedAppointmentDate, setSelectedAppointmentDate] = useState(null);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [middleName, setMiddleName] = useState("");
@@ -22,6 +28,7 @@ function Appointment() {
     const services = ["Service 1", "Service 2", "Service 3"];
     const [selectedService, setSelectedService] = useState("");
     const [message, setMessage] = useState("");
+    const [error, setError] = useState('');
 
     //navigate
     const navigate = useNavigate();
@@ -39,56 +46,49 @@ function Appointment() {
     };
 
     const handleAppointDate = (date) => {
-        if (!date) {
-            setAppointmentDate(null);
+        setSelectedAppointmentDate(date);
+    };
+
+    const getMinTime = (date) => {
+        const minTime = new Date(date);
+        minTime.setHours(8, 0, 0, 0); // 8 AM
+        return minTime;
+    };
+
+    const getMaxTime = (date) => {
+        const maxTime = new Date(date);
+        maxTime.setHours(18, 0, 0, 0); // 6 PM
+        return maxTime;
+    };
+
+    const handleFirstName = (e) => {setFirstName(e.target.value);};
+    const handleLastName = (e) => {setLastName(e.target.value);};
+    const handleMiddleName = (e) => {setMiddleName(e.target.value);};
+    const handleSuffix = (e) => {setSuffix(e.target.value);};
+    const handleStreetBuilding = (e) => {setStreetBuilding(e.target.value);};
+    const handleBarangay = (event) => {setBarangay(event.target.value);};
+    const handleCity = (event) => {setCity(event.target.value);};
+    const handleBranch = (branchName) => {setBranch(branchName);};
+    const handleServiceChange = (event) => {setSelectedService(event.target.value);};
+
+    const handlePhoneNumber = (value) => {
+        // Update the input value directly
+        setContactNumber(value);
+
+        // Clean the input by removing spaces and any non-numeric characters except '+'
+        let cleanValue = value.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
+
+        // Parse the cleaned phone number
+        const phoneNumber = parsePhoneNumberFromString(cleanValue, 'PH');
+
+        // Check if the phone number is valid
+        if (phoneNumber && phoneNumber.isValid()) {
+            setError('');
         } else {
-            setAppointmentDate(date);
+            setError('Invalid phone number. Please check the format.');
         }
-    };
 
-    const handleFirstName = (e) => {
-        setFirstName(e.target.value); // Update state with input value
-    };
-
-    const handleLastName = (e) => {
-        setLastName(e.target.value); // Update state with input value
-    };
-
-    const handleMiddleName = (e) => {
-        setMiddleName(e.target.value); // Update state with input value
-    };
-
-    const handleSuffix = (e) => {
-        setSuffix(e.target.value); // Update state with input value
-    };
-
-    const handleStreetBuilding = (e) => {
-        setStreetBuilding(e.target.value); // Update state with input value
-    };
-
-    const handleBarangay = (event) => {
-        setBarangay(event.target.value);
-    };
-
-    const handleCity = (event) => {
-        setCity(event.target.value);
-    };
-
-    const handleContactNumber = (event) => {
-        const input = event.target.value;
-
-        // Allow only numeric characters and ensure the length is 11 or less
-        if (/^\d{0,11}$/.test(input)) {
-            setContactNumber(input);
-        }
-    };
-
-    const handleBranch = (branchName) => {
-        setBranch(branchName);
-    };
-
-    const handleServiceChange = (event) => {
-        setSelectedService(event.target.value);
+        console.log(value);
     };
 
     const handleSubmit = async (e) => {
@@ -226,12 +226,18 @@ function Appointment() {
                                         onChange={handleCity}
                                     />
 
-                                    <input
-                                        type="text"
-                                        placeholder="Contact Number"
-                                        value={contactNumber}
-                                        onChange={handleContactNumber}
-                                    />
+                                    <label>Contact Number</label>
+                                        <PhoneInput
+                                            country={'ph'}
+                                            value={contactNumber}
+                                            onChange={handlePhoneNumber}
+                                            inputProps={{
+                                                name: 'phone',
+                                                required: true,
+                                                autoFocus: true
+                                            }}
+                                        />
+                                        {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
                                 </form>
                             </div>
                         </div>
@@ -266,29 +272,13 @@ function Appointment() {
 
                             <DatePicker
                                 className="appointment-datepicker"
-                                placeholderText="MM/DD/YYYY"
+                                placeholderText="MM/DD/YYYY, HH:MM"
                                 selected={selectedAppointmentDate}
                                 onChange={handleAppointDate}
                                 showTimeSelect
                                 dateFormat="Pp"
-                                minTime={
-                                    selectedAppointmentDate &&
-                                    new Date(selectedAppointmentDate).setHours(
-                                        8,
-                                        0,
-                                        0,
-                                        0
-                                    ) // 8 AM
-                                }
-                                maxTime={
-                                    selectedAppointmentDate &&
-                                    new Date(selectedAppointmentDate).setHours(
-                                        18,
-                                        0,
-                                        0,
-                                        0
-                                    ) // 6 PM
-                                }
+                                minTime={selectedAppointmentDate ? getMinTime(selectedAppointmentDate) : null}
+                                maxTime={selectedAppointmentDate ? getMaxTime(selectedAppointmentDate) : null}
                                 minDate={new Date()} // Disallow dates before today
                             />
 
