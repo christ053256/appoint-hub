@@ -6,15 +6,16 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker styles
 import { sendAppointmentData } from "../firebase";
 
-import PhoneInput from 'react-phone-input-2';
-import 'react-phone-input-2/lib/style.css';
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 // Import libphonenumber-js
-import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 function Appointment() {
     const [selectedBirthDate, setSelectedBirthDate] = useState("");
-    const [selectedAppointmentDate, setSelectedAppointmentDate] = useState(null);
+    const [selectedAppointmentDate, setSelectedAppointmentDate] =
+        useState(null);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [middleName, setMiddleName] = useState("");
@@ -28,7 +29,7 @@ function Appointment() {
     const services = ["Service 1", "Service 2", "Service 3"];
     const [selectedService, setSelectedService] = useState("");
     const [message, setMessage] = useState("");
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     //navigate
     const navigate = useNavigate();
@@ -61,31 +62,49 @@ function Appointment() {
         return maxTime;
     };
 
-    const handleFirstName = (e) => {setFirstName(e.target.value);};
-    const handleLastName = (e) => {setLastName(e.target.value);};
-    const handleMiddleName = (e) => {setMiddleName(e.target.value);};
-    const handleSuffix = (e) => {setSuffix(e.target.value);};
-    const handleStreetBuilding = (e) => {setStreetBuilding(e.target.value);};
-    const handleBarangay = (event) => {setBarangay(event.target.value);};
-    const handleCity = (event) => {setCity(event.target.value);};
-    const handleBranch = (branchName) => {setBranch(branchName);};
-    const handleServiceChange = (event) => {setSelectedService(event.target.value);};
+    const handleFirstName = (e) => {
+        setFirstName(e.target.value);
+    };
+    const handleLastName = (e) => {
+        setLastName(e.target.value);
+    };
+    const handleMiddleName = (e) => {
+        setMiddleName(e.target.value);
+    };
+    const handleSuffix = (e) => {
+        setSuffix(e.target.value);
+    };
+    const handleStreetBuilding = (e) => {
+        setStreetBuilding(e.target.value);
+    };
+    const handleBarangay = (event) => {
+        setBarangay(event.target.value);
+    };
+    const handleCity = (event) => {
+        setCity(event.target.value);
+    };
+    const handleBranch = (branchName) => {
+        setBranch(branchName);
+    };
+    const handleServiceChange = (event) => {
+        setSelectedService(event.target.value);
+    };
 
     const handlePhoneNumber = (value) => {
         // Update the input value directly
         setContactNumber(value);
 
         // Clean the input by removing spaces and any non-numeric characters except '+'
-        let cleanValue = value.replace(/\s+/g, '').replace(/[^0-9+]/g, '');
+        let cleanValue = value.replace(/\s+/g, "").replace(/[^0-9+]/g, "");
 
         // Parse the cleaned phone number
-        const phoneNumber = parsePhoneNumberFromString(cleanValue, 'PH');
+        const phoneNumber = parsePhoneNumberFromString(cleanValue, "PH");
 
         // Check if the phone number is valid
         if (phoneNumber && phoneNumber.isValid()) {
-            setError('');
+            setError("");
         } else {
-            setError('Invalid phone number. Please check the format.');
+            setError("Invalid phone number. Please check the format.");
         }
 
         console.log(value);
@@ -226,18 +245,30 @@ function Appointment() {
                                         onChange={handleCity}
                                     />
 
-                                    <label>Contact Number</label>
+                                    <div className="appointment-contactNo">
+                                        <label>Contact Number</label>
                                         <PhoneInput
-                                            country={'ph'}
+                                            className="phone-input"
+                                            country={"ph"}
                                             value={contactNumber}
                                             onChange={handlePhoneNumber}
                                             inputProps={{
-                                                name: 'phone',
+                                                name: "phone",
                                                 required: true,
-                                                autoFocus: true
+                                                autoFocus: true,
                                             }}
                                         />
-                                        {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
+                                        {error && (
+                                            <div
+                                                style={{
+                                                    color: "red",
+                                                    marginTop: "10px",
+                                                }}
+                                            >
+                                                {error}
+                                            </div>
+                                        )}
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -277,8 +308,16 @@ function Appointment() {
                                 onChange={handleAppointDate}
                                 showTimeSelect
                                 dateFormat="Pp"
-                                minTime={selectedAppointmentDate ? getMinTime(selectedAppointmentDate) : null}
-                                maxTime={selectedAppointmentDate ? getMaxTime(selectedAppointmentDate) : null}
+                                minTime={
+                                    selectedAppointmentDate
+                                        ? getMinTime(selectedAppointmentDate)
+                                        : null
+                                }
+                                maxTime={
+                                    selectedAppointmentDate
+                                        ? getMaxTime(selectedAppointmentDate)
+                                        : null
+                                }
                                 minDate={new Date()} // Disallow dates before today
                             />
 

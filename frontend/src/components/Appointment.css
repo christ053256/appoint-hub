@@ -10,15 +10,18 @@
     background-color: #a2e3f5;
     z-index: 1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png'); /* Path to your leaves image */
-    background-size: 60rem; /* Make the image cover the entire screen */
-    background-position-y: 30px;
-    background-position-x: 580px;
+    background-size: 65rem; /* Make the image cover the entire screen */
+    background-position-y: 0px;
+    background-position-x: 360px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;    
+    width: 100%;
 
 
     background-repeat: no-repeat; /* Prevent the image from repeating */
 
     justify-content: center;
-    overflow-y: auto; /* This will add a vertical scrollbar when needed */
+    overflow: hidden;
 
 
 }
@@ -26,10 +29,10 @@
 
 .form-container {
     display: flex;
-    margin-top: 15px;
+    margin-top: 5px;
     border-radius: 20px;
-    width: 50%;
-    height: 600px;
+    width: 55%;
+    height: 590px;
     flex-shrink: 0;
     background-color: #fff;
     flex-direction: column;
@@ -37,7 +40,7 @@
 }
 
 .appointment-title {
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 20px;
     width: 100%;
     clear: both;
@@ -249,6 +252,11 @@ Link {
     background-color: #2e3894; /* Slightly darker blue for active state */
     color: white; /* Maintain white text */
     transform: scale(0.98); /* Adds a subtle press effect */
+}
+
+
+.phone-input {
+    border-radius: 10px;
 }
 
 

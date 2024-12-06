@@ -29,7 +29,7 @@ function Home() {
                         </Link>
                     </div>
                 </div>
-                <div className="home-right"></div>\
+                <div className="home-right"></div>
             </div>
         </div>
     );

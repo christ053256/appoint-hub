@@ -4,10 +4,12 @@
     background-color: #a2e3f5;
     z-index: 1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png'); /* Path to your leaves image */
-    background-size: 60rem; /* Make the image cover the entire screen */
-    background-position-y: 30px;
-    background-position-x: 580px;
-
+    background-size: 65rem; /* Make the image cover the entire screen */
+    background-position-y: 0px;
+    background-position-x: 360px;
+    background-repeat: no-repeat;
+    background-attachment: fixed;    
+    width: 100%;
 
     background-repeat: no-repeat; /* Prevent the image from repeating */
     
