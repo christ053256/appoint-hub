@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 console.log(window.innerWidth);
 console.log(window.innerHeight);
+
+// const [showModal, setShowModal] = useState(false);
+
+// const toggleModal = () => setShowModal(!showModal);
+
 function Home() {
     return (
         <div className="bg">
@@ -29,7 +34,7 @@ function Home() {
                         </Link>
                     </div>
                 </div>
-                <div className="home-right"></div>
+                <div className="home-right">{/* BUTTON FOR ADMIN */}</div>
             </div>
         </div>
     );

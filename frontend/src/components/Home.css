@@ -1,16 +1,16 @@
 .home-container {
     display: flex;
     height: 90vh;
-    background-color: #a2e3f5;
+    /* background-color: #a2e3f5; */
+    background-color: #e1f0ff;
     z-index: -1; /* Make sure the content sits above the background */
-    background-image: url('../assets/bg.png'); /* Path to your leaves image */
-    background-size: 65rem; /* Make the image cover the entire screen */
-    background-position-y: 0px;
-    background-position-x: 355px;
+    background-image: url('../assets/bg.png');
+    background-size: 75rem; /* Make the image cover the entire screen */
+    /* background-position-y: 65px; */
+    background-position-x: 340px;
     background-repeat: no-repeat;
-    background-attachment: fixed;    
+    /* background-attachment: fixed;     */
     width: 100%;
-    
 }
 
 
@@ -89,19 +89,20 @@
 .home-appointment {
     background-color: #3946B5;
     color: white;
+    border: none;
     
 
 }
 
 .home-services {
     color: #3946B5;
+    border: #3946B5 1px solid;
 }
 
 .home-appointment, .home-services {
     font-family: Outfit;
     font-size: 20px;
     padding: 12px 24px;
-    border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
     border-radius: 20px;
@@ -112,14 +113,18 @@
 }
 
 .home-services:hover {
-    background-color: #3946B5; /* Darker color on hover */
+    background-color: #272E6C; /* Darker color on hover */
     color: white;
+    border: none;
 }
 
 
 
-@media screen {
-    
+
+
+
+@media (max-width: 150px) {
+   
 }
 
 

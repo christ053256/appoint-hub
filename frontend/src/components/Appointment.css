@@ -7,14 +7,16 @@
 .appointment-container {
     display: flex;
     height: 90vh;
-    background-color: #a2e3f5;
+    /* background-color: #a2e3f5; */
+    background-color: #e1f0ff;
+
     z-index: 1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png'); /* Path to your leaves image */
-    background-size: 65rem; /* Make the image cover the entire screen */
-    background-position-y: 0px;
-    background-position-x: 360px;
+    background-size: 75rem; /* Make the image cover the entire screen */
+    /* background-position-y: 0px; */
+    background-position-x: 340px;
     background-repeat: no-repeat;
-    background-attachment: fixed;    
+    /* background-attachment: fixed;     */
     width: 100%;
 
 
@@ -29,10 +31,10 @@
 
 .form-container {
     display: flex;
-    margin-top: 5px;
+    margin-top: 30px;
     border-radius: 20px;
     width: 55%;
-    height: 590px;
+    height: 620px;
     flex-shrink: 0;
     background-color: #fff;
     flex-direction: column;
@@ -40,7 +42,7 @@
 }
 
 .appointment-title {
-    margin-top: 20px;
+    margin-top: 25px;
     margin-bottom: 20px;
     width: 100%;
     clear: both;

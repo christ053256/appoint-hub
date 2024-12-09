@@ -178,7 +178,8 @@ function Appointment() {
                     <div className="appointment-content">
                         <div className="appointment-left">
                             <h3>Patient Information</h3>
-                            <div className="appointment-div1">
+                            <div className="appointment-div1"></div>
+                            <div className="appointment-div2">
                                 <form action="">
                                     <input
                                         type="text"
@@ -187,18 +188,6 @@ function Appointment() {
                                         value={firstName}
                                         onChange={handleFirstName}
                                     />
-
-                                    <input
-                                        type="text"
-                                        placeholder="Suffix"
-                                        className="suffix"
-                                        value={Suffix}
-                                        onChange={handleSuffix}
-                                    />
-                                </form>
-                            </div>
-                            <div className="appointment-div2">
-                                <form action="">
                                     <input
                                         type="text"
                                         placeholder="Middle Name"
