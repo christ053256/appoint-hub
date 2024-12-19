@@ -238,7 +238,7 @@
         width: 100%; /* Full width */
         max-width: 350px; /* Prevent the form from being too wide */
         height: auto; /* Flexible height */
-        max-height: 500px; /* Constrain max height */
+        max-height: 500px;  /*Constrain max height */
         overflow-y: auto; /* Add vertical scroll if necessary */
         margin: 0 auto; /* Center the form */
     }
@@ -277,8 +277,7 @@
 
     .set-appointment-button {
         font-size: 14px; /* Smaller font */
-        height: 40px; /* Compact height */
-        margin-top: 15px;
+        height: 30px; /* Compact height */
     }
 
     .appointment-div1 input,
