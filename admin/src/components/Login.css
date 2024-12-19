@@ -1,0 +1,213 @@
+/* Global Styles */
+* {
+    font-family: 'Outfit', sans-serif;
+}
+
+
+body, html {
+    background-color: #e1f0ff;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* #root {
+    background-color: #e1f0ff;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    width: 10px;
+} */
+
+.login-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+body {
+    /* background-color: #a2e3f5; */
+    background-color: #e1f0ff;
+    z-index: -1; /* Make sure the content sits above the background */
+    background-image: url('../assets/bg.png');
+    background-size: 80rem; /* Make the image cover the entire screen */
+    background-position-y: -100px;
+    background-position-x: 5    40px;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed;     */
+}
+
+
+
+/* Admin Navbar */
+.admin-nav {
+    position: fixed; /* Fixes the navbar at the top */
+    top: 0; /* Ensures it stays at the top */
+    left: 0; /* Aligns it to the left edge */
+    width: 100vw; /* Makes it cover the full width of the viewport */
+    background-color: #ecf6ff; /* Background color */
+    height: 10vh; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    padding-left: 50px; /* Optional, you can remove if not needed */
+
+    z-index: 1000; /* Ensures it stays on top of other elements */
+}
+
+
+.logo-img {
+    height: 54px;
+    width: auto;
+}
+
+.logo-e, .logo-care {
+    font-family: Outfit;
+    font-size: 36px;
+    font-style: normal;
+    line-height: 125.994%; /* 60.477px */
+    letter-spacing: 0.48px;
+}
+
+.logo-e {
+    color: #272E6C;
+    font-weight: 200;
+}
+
+.logo-care {
+    color: #3946B5;
+    font-weight: 600;
+}
+
+
+
+/* Admin Login Form */
+.admin-form {
+    background-color: #f9f9f9; /* Light gray background for contrast */
+    height: auto; /* Adjust height based on content */
+    width: 400px; /* A fixed width for the form */
+    margin: 125px auto; /* Center the form horizontally and add vertical space */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    padding: 20px; /* Internal spacing */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 20px; /* Space between header and login text */
+}
+
+    .form-header p {
+        margin: 0;
+        color: #3946b5; /* Same color as the logo-care text */
+        font-weight: 600;
+    }
+
+h2 {
+    font-size: 24px;
+    color: #272e6c; /* Slightly darker text color */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.login-form {
+    width: 100%; /* Stretch the form to the width of the container */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between fields */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 5px; /* Space between label and input */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Rounded corners for input fields */
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #3946b5; /* Highlight the border on focus */
+}
+
+.submit-button {
+    background-color: #3946b5; /* Same blue as the logo-care text */
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-button:hover {
+    background-color: #272e6c; /* Darker blue for hover effect */
+}
+
+.submit-button:active {
+    background-color: #1d204d; /* Even darker blue for active state */
+}
+
+@media (max-width: 480px) {
+    body {
+        /* background-color: #a2e3f5; */
+        background-color: #e1f0ff;
+        z-index: -1; /* Make sure the content sits above the background */
+        background-image: url('../assets/bg.png');
+        background-size: 70rem !important;  /* Make the image cover the entire screen */
+        background-position-y: -75px !important;
+        background-position-x: -300px !important;
+        background-repeat: no-repeat;
+    }
+    
+
+    .admin-form {
+        width: 100% !important; /* Responsive for smaller screens */
+    }
+
+    .admin-nav {
+    padding-left: 20px !important;
+
+    }
+
+    .logo-img {
+        height: 36px !important;
+        width: auto !important;
+    }
+    
+    .logo-e, .logo-care {
+        font-size: 28px !important;
+        font-style: normal !important;
+        line-height: 125.994% !important; /* 60.477px */
+        letter-spacing: 0.48px !important;
+    }
+
+    h2 {
+    font-size: 20px;
+    }
+
+}
+
+
