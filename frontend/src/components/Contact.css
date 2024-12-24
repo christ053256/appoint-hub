@@ -5,8 +5,8 @@
     z-index: 1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png'); /* Path to your leaves image */
     background-size: 30rem; /* Make the image cover the entire screen */
-    background-position-y: 375px;
-    background-position-x: 800px;
+    background-position-y: 300px;
+    background-position-x: 850px;
     background-repeat: no-repeat;
     background-attachment: fixed;    
     width: 100%;
