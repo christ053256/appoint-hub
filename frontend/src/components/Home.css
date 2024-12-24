@@ -6,7 +6,7 @@
     z-index: -1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png');
     background-size: 50rem; /* Make the image cover the entire screen */
-    background-position-y: 100px;
+    background-position-y: 200px;
     background-position-x: 600px;
     background-repeat: no-repeat;
     width: 100%;
