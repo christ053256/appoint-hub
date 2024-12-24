@@ -18,6 +18,7 @@
 }
 
 .about-container h1 {
+    text-align: center;
     font-size: 3rem;
     font-weight: bold;
     color: #000;
@@ -25,6 +26,7 @@
 }
 
 .about-container p {
+    text-align: center;
     font-size: 1.2rem;
     line-height: 1.8;
     color: #333;
