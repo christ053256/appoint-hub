@@ -5,14 +5,9 @@ import logo from "../assets/logo.png";
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [showModal, setShowModal] = useState(false); // State for modal visibility
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
-    };
-
-    const toggleModal = () => {
-        setShowModal(!showModal); // Toggle modal visibility
     };
 
     return (
@@ -58,49 +53,9 @@ function NavBar() {
                                 Contact
                             </NavLink>
                         </li>
-                        <li>
-                            <button className="admin" onClick={toggleModal}>
-                                Admin
-                            </button>
-                        </li>
                     </ul>
                 </div>
             </nav>
-
-            {/* Admin Login Modal */}
-            {showModal && (
-                <div className="modal-overlay">
-                    <div className="modal-container">
-                        <button className="close-button" onClick={toggleModal}>
-                            X
-                        </button>
-                        <h2>Admin Login</h2>
-                        <form className="login-form">
-                            <div className="form-group">
-                                <label htmlFor="admin-username">Username</label>
-                                <input
-                                    type="text"
-                                    id="admin-username"
-                                    name="username"
-                                    required
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="admin-password">Password</label>
-                                <input
-                                    type="password"
-                                    id="admin-password"
-                                    name="password"
-                                    required
-                                />
-                            </div>
-                            <button type="submit" className="submit-button">
-                                Login
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

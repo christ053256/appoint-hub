@@ -19,7 +19,6 @@ function Appointment() {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [middleName, setMiddleName] = useState("");
-    const [Suffix, setSuffix] = useState("");
     const [Age, setAge] = useState("");
     const [streetBuilding, setStreetBuilding] = useState("");
     const [Barangay, setBarangay] = useState("");
@@ -71,9 +70,6 @@ function Appointment() {
     const handleMiddleName = (e) => {
         setMiddleName(e.target.value);
     };
-    const handleSuffix = (e) => {
-        setSuffix(e.target.value);
-    };
     const handleStreetBuilding = (e) => {
         setStreetBuilding(e.target.value);
     };
@@ -107,9 +103,31 @@ function Appointment() {
             setError("Invalid phone number. Please check the format.");
         }
 
-        console.log(value);
     };
 
+    function formatObjectDate(dateObj) {
+        // Extract the components of the date
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-11, so add 1
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const year = dateObj.getFullYear();
+        
+        let hour = dateObj.getHours();
+        const minute = String(dateObj.getMinutes()).padStart(2, '0');
+        
+        // Determine AM/PM
+        const period = hour >= 12 ? 'PM' : 'AM';
+        
+        // Convert to 12-hour format
+        if (hour > 12) {
+            hour -= 12;  // Convert to 12-hour format
+        } else if (hour === 0) {
+            hour = 12;  // Midnight case
+        }
+    
+        // Return the formatted date string
+        return `${month}/${day}/${year} ${hour}:${minute} ${period}`;
+    }
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (
@@ -126,10 +144,10 @@ function Appointment() {
         ) {
             const appointment = {
                 id: Date.now().toString(),
+                appointDate: formatObjectDate(selectedAppointmentDate),
                 first_name: firstName,
                 middle_name: middleName,
                 last_name: lastName,
-                suffix: Suffix,
                 age: Age,
                 birtDate: selectedBirthDate,
                 steetBuilding: streetBuilding,
@@ -138,7 +156,6 @@ function Appointment() {
                 contact_number: contactNumber,
                 selectedService: selectedService,
                 selectedBranch: selectedBranch,
-                appointmentDate: selectedAppointmentDate,
                 appointmentCreated: Date(),
             };
 
@@ -168,6 +185,7 @@ function Appointment() {
     }, 1500);
 
     //handleSubmit--- nalang need dataBase
+    //console.log(typeof Date());
     return (
         <div>
             <div className="appointment-container">

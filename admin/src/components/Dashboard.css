@@ -1,0 +1,250 @@
+* {
+    font-family: 'Outfit', sans-serif;
+}
+
+
+body {
+    /* background-color: #a2e3f5; */
+    background-color: #e1f0ff;
+    z-index: -1; /* Make sure the content sits above the background */
+    background-image: url('../assets/bg.png');
+    background-size: 80rem; /* Make the image cover the entire screen */
+    background-position-y: -100px;
+    background-position-x: 340px;
+    background-repeat: no-repeat;
+    /* background-attachment: fixed;     */
+}
+
+
+.dashboard-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+
+
+/* Dashboard Navbar */
+.dashboard-nav {
+    position: fixed; /* Fixes the navbar at the top */
+    top: 0; /* Ensures it stays at the top */
+    left: 0; /* Aligns it to the left edge */
+    width: 100vw; /* Makes it cover the full width of the viewport */
+    background-color: #ecf6ff; /* Background color */
+    height: 10vh; /* Adjust height as needed */
+    display: flex;
+    align-items: center;
+    padding-left: 50px; /* Optional, you can remove if not needed */
+
+    z-index: 1000; /* Ensures it stays on top of other elements */
+}
+
+
+.logo-img {
+    height: 54px;
+    width: auto;
+}
+
+.logo-e, .logo-care {
+    font-family: Outfit;
+    font-size: 36px;
+    font-style: normal;
+    line-height: 125.994%; /* 60.477px */
+    letter-spacing: 0.48px;
+}
+
+.logo-e {
+    color: #272E6C;
+    font-weight: 200;
+}
+
+.logo-care {
+    color: #3946B5;
+    font-weight: 600;
+}
+
+
+
+@media (max-width: 480px) {
+    body {
+        /* background-color: #a2e3f5; */
+        background-color: #e1f0ff;
+        z-index: -1; /* Make sure the content sits above the background */
+        background-image: url('../assets/bg.png');
+        background-size: 70rem !important;  /* Make the image cover the entire screen */
+        background-position-y: -75px !important;
+        background-position-x: -300px !important;
+        background-repeat: no-repeat;
+    }
+    
+
+    .dashboard-form {
+        width: 100% !important; /* Responsive for smaller screens */
+    }
+
+    .dashboard-nav {
+    padding-left: 20px !important;
+
+    }
+
+    .logo-img {
+        height: 36px !important;
+        width: auto !important;
+    }
+    
+    .logo-e, .logo-care {
+        font-size: 28px !important;
+        font-style: normal !important;
+        line-height: 125.994% !important; /* 60.477px */
+        letter-spacing: 0.48px !important;
+    }
+    .dashboard-contents {
+        position: absolute; /* Or relative if needed */
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); /* Center horizontally and vertically */
+        height: 550px;
+        width: 20rem;
+        background-color: transparent; /* Remove direct background */
+        border-radius: 15px;
+        overflow-x: auto;
+        margin-top: 2rem;
+    }
+    
+    .dashboard-contents::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -10rem; /* Move the background 10rem to the left */
+        width: calc(100% + 10rem); /* Extend the width to accommodate the left shift */
+        height: 100%;
+        background-color: #272E6C;
+        opacity: 0.47; /* Apply opacity only to the background */
+        border-radius: 15px; /* Match the parent’s border-radius */
+        z-index: 1; /* Place behind the contents */
+    }
+
+
+    .dashboard-buttons {
+        position: relative;
+        z-index: 2; /* Ensure buttons are above the background */
+        display: flex; /* Align buttons horizontally */
+        justify-content: center; /* Center buttons within the container */
+        gap: 10px; /* Add spacing between buttons */
+        margin-top: 20px;
+    }
+    
+    .dashboard-buttons button {
+        text-decoration: none;
+        padding: 10px 10px; /* Add padding for better button size */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #4CAF50; /* Green background */
+        color: white; /* White text */
+        font-size: 14px; /* Font size for text */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: all 0.3s ease; /* Smooth hover effects */
+    }
+    
+    .dashboard-buttons button:hover {
+        background-color: #45a049; /* Slightly darker green on hover */
+    }
+    
+    .dashboard-buttons button:active {
+        background-color: #3e8e41; /* Even darker green on click */
+        transform: scale(0.95); /* Slightly shrink button when clicked */
+    }
+    
+    .dashboard-buttons button:disabled {
+        background-color: #c8c8c8; /* Grey background for disabled buttons */
+        color: #6f6f6f; /* Lighter text for disabled state */
+        cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
+    }
+
+
+
+    /* STYLINGS FOR EACH BUTTONS */
+    .dashboard-buttons {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .dashboard-buttons button {
+        text-decoration: none;
+        padding: 10px 10px;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    /* Specific colors for each button */
+    .dashboard-buttons button:nth-child(1) { /* "Confirmed" button */
+        background-color: #008CBA; /* Blue */
+    }
+    
+    .dashboard-buttons button:nth-child(1):hover {
+        background-color: #007bb5;
+    }
+    
+    .dashboard-buttons button:nth-child(2) { /* "All" button */
+        background-color: #4CAF50; /* Green */
+    }
+    
+    .dashboard-buttons button:nth-child(2):hover {
+        background-color: #45a049;
+    }
+    
+ 
+    .dashboard-buttons button:nth-child(3) { /* "Rejected" button */
+        background-color: #f44336; /* Red */
+    }
+    
+    .dashboard-buttons button:nth-child(3):hover {
+        background-color: #d7382c;
+    }
+    
+    .dashboard-buttons button:nth-child(4) { /* "Pending" button */
+        background-color: #ff9800; /* Orange */
+    }
+    
+    .dashboard-buttons button:nth-child(4):hover {
+        background-color: #e68900;
+    }
+    
+
+    .table-container {
+        position: relative; /* Keep content positioned properly */
+        z-index: 2; /* Place above the pseudo-element */
+        height: 470px;
+        width: 95;
+        background-color: white;
+        margin: 10px;
+
+        border-radius: 10px;
+        overflow-x: auto;
+
+    }
+    
+    .table-container table {
+        width: 100%; /* Ensure the table adjusts to the container */
+    }
+    
+    .table-container th {
+        padding: 10px;
+        color: #272E6C;
+    }
+    
+    
+
+
+}
+
+

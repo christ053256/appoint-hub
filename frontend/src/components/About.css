@@ -1,18 +1,56 @@
 .about-container {
     display: flex;
     height: 90vh;
-    background-color: #a2e3f5; 
- 
-    z-index: 1; /* Make sure the content sits above the background */
-    background-image: url('../assets/bg.png'); /* Path to your leaves image */
-    background-size: 65rem; /* Make the image cover the entire screen */
-    background-position-y: 0px;
-    background-position-x: 360px;
+    /* background-color: #a2e3f5; */
+    background-color: #e1f0ff;
+    z-index: -1; /* Make sure the content sits above the background */
+    background-image: url('../assets/bg.png');
+    background-size: 40rem; /* Make the image cover the entire screen */
+    background-position-y: 155px;
+    background-position-x: 725px;
     background-repeat: no-repeat;
-    background-attachment: fixed;    
     width: 100%;
-    
+}
 
 
-    
+.about-title {
+    flex: 1;
+    margin-top: 12vh;
+    margin-left: 90px;
+}
+
+.about-right {
+    flex: 1;
+}
+
+.about-d {
+    font-family: Outfit;
+    font-size: 80px;
+    font-style: normal;
+    letter-spacing: 0.48px;
+    margin: 0;  /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    line-height: 15px; /* Control line height */
+}
+
+.about-d {
+    color: #3946B5;
+    font-weight: 500;
+}
+
+/* SLOGAN */
+.about-p {
+    margin-top: 5vh;
+    color: #272E6C;
+    font-family: Outfit;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 125.994%; /* 35.278px */
+    letter-spacing: 0.28px;
+}
+
+
+@media (max-width: 150px) {
+   
 }

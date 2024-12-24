@@ -4,9 +4,16 @@
     font-family: 'Outfit', sans-serif;
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;  /* Prevent horizontal scroll */
+    overflow-y: auto;  /* Allow vertical scroll */
+}
+
 .appointment-container {
     display: flex;
-    height: 90vh;
     background-color: #e1f0ff;
     z-index: 1;
     background-image: url('../assets/bg.png');
@@ -15,9 +22,10 @@
     background-repeat: no-repeat;
     width: 100%;
     justify-content: center;
-    overflow: hidden;
+    overflow: auto;  /* Allow scrolling inside */
     background-size: cover; /* Make sure the background covers the entire container */
     background-position: center;
+    padding-bottom: 30px; /* Add padding at the bottom if needed */
 }
 
 .form-container {
@@ -25,11 +33,11 @@
     margin-top: 30px;
     border-radius: 20px;
     width: 55%;
-    height: 620px;
     flex-shrink: 0;
     background-color: #fff;
     flex-direction: column;
     padding: 20px;
+    min-height: 620px; /* Make sure form is not shrinking too small */
 }
 
 .appointment-title {
