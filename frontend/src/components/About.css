@@ -7,7 +7,7 @@
     background-image: url('../assets/bg.png');
     background-size: 40rem; /* Make the image cover the entire screen */
     background-position-y: 150px;
-    background-position-x: 650px;
+    background-position-x: 700px;
     background-repeat: no-repeat;
     width: 100%;
 }
