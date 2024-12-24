@@ -1,4 +1,4 @@
-.home-container {
+.about-container {
     display: flex;
     height: 90vh;
     /* background-color: #a2e3f5; */
@@ -13,17 +13,17 @@
 }
 
 
-.home-left {
+.about-left {
     flex: 1;
     margin-top: 10vh;
     margin-left: 90px;
 }
 
-.home-right {
+.about-right {
     flex: 1;
 }
 
-.home-d {
+.about-d {
     font-family: Outfit;
     font-size: 80px;
     font-style: normal;
@@ -33,13 +33,13 @@
     line-height: 15px; /* Control line height */
 }
 
-.home-d {
+.about-d {
     color: #272E6C;
     font-weight: 200;
 }
 
 /* SLOGAN */
-.home-p {
+.about-p {
     color: #272E6C;
     font-family: Outfit;
     font-size: 20px;
