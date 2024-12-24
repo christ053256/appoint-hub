@@ -19,11 +19,6 @@
     margin-left: 90px;
 }
 
-.about-paragraph {
-    margin-top: 25vh;
-    margin-left: 90px;
-}
-
 .about-right {
     flex: 1;
 }
@@ -45,6 +40,7 @@
 
 /* SLOGAN */
 .about-p {
+    margin-top: 25vh;
     color: #272E6C;
     font-family: Outfit;
     font-size: 20px;
