@@ -5,8 +5,8 @@
     background-color: #e1f0ff;
     z-index: -1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png');
-    background-size: 70rem; /* Make the image cover the entire screen */
-    background-position-y: -170px;
+    background-size: 60rem; /* Make the image cover the entire screen */
+    background-position-y: -180px;
     background-position-x: 340px;
     background-repeat: no-repeat;
     width: 100%;
