@@ -10,3 +10,8 @@
 - cd frontend
 - npm install react react-dom react-router-dom react-datepicker firebase
 - npm run dev or npx vite
+
+## If an error occur kindly use this node command to install necessary dependencies
+- npm i
+- npm install react react-dom react-router-dom react-datepicker react-phone-input-2 libphonenumber-js firebase
+
