@@ -8,7 +8,7 @@ import { sendAppointmentData } from "../firebase";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-
+// No Context
 // Import libphonenumber-js
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
