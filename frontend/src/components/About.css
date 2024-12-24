@@ -15,7 +15,7 @@
 
 .about-title {
     flex: 1;
-    margin-top: 10vh;
+    margin-top: 15vh;
     margin-left: 90px;
 }
 
@@ -35,12 +35,12 @@
 
 .about-d {
     color: #272E6C;
-    font-weight: 300;
+    font-weight: 500;
 }
 
 /* SLOGAN */
 .about-p {
-    margin-top: 10vh;
+    margin-top: 5vh;
     color: #272E6C;
     font-family: Outfit;
     font-size: 22px;
