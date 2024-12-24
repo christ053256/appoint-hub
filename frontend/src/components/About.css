@@ -19,17 +19,23 @@
 }
 
 .about-container h1 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #000;
-    margin-bottom: 1rem;
+    font-family: Outfit;
+    font-size: 150px;
+    font-style: normal;
+    letter-spacing: 0.48px;
+    margin: 0;  /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    line-height: 15px; /* Control line height */
 }
 
 .about-container p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #333;
-    max-width: 600px;
+    color: #272E6C;
+    font-family: Outfit;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 125.994%; /* 35.278px */
+    letter-spacing: 0.28px;
 }
 
 .about-container .text-section {
