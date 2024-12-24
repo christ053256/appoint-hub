@@ -10,7 +10,6 @@
     background-repeat: no-repeat;
     background-attachment: fixed;    
     width: 100%;
-
+    overflow: hidden;
     background-repeat: no-repeat; /* Prevent the image from repeating */
-    
 }
