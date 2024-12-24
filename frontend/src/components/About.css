@@ -21,7 +21,7 @@
 
 .about-paragraph {
     flex: 1;
-    margin-top: 50vh;
+    margin-top: 30vh;
     margin-left: 90px;
 }
 
@@ -46,7 +46,6 @@
 
 /* SLOGAN */
 .about-p {
-    text-align: justify;
     color: #272E6C;
     font-family: Outfit;
     font-size: 20px;
