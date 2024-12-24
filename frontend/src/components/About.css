@@ -26,14 +26,12 @@
 /* 8 CARE */
 .home-e {
     font-family: Outfit;
-    font-size: 150px;
+    font-size: 80px;
     font-style: normal;
     letter-spacing: 0.48px;
     margin: 0;  /* Remove any default margin */
     padding: 0; /* Remove any default padding */
     line-height: 15px; /* Control line height */
-
-
 }
 
 .home-e {
@@ -45,7 +43,7 @@
 .home-p {
     color: #272E6C;
     font-family: Outfit;
-    font-size: 30px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 300;
     line-height: 125.994%; /* 35.278px */
