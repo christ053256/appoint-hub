@@ -15,7 +15,7 @@
 
 .about-container h1 {
     font-family: Outfit;
-    font-size: 150px;
+    font-size: 100px;
     font-style: normal;
     letter-spacing: 0.48px;
     margin: 0;  /* Remove any default margin */
@@ -26,7 +26,7 @@
 .about-container p {
     color: #272E6C;
     font-family: Outfit;
-    font-size: 20px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 300;
     line-height: 125.994%; /* 35.278px */
