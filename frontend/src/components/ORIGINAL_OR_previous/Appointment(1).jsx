@@ -1,10 +1,11 @@
+//Mao ni ang original
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import "./Appointment.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker styles
-import { sendAppointmentData } from "../firebase";
+import { sendAppointmentData } from "../../firebase";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -29,14 +30,6 @@ function Appointment() {
     const [selectedService, setSelectedService] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
-
-    // Add these right after your existing useState declarations
-    const [showOTPInput, setShowOTPInput] = useState(false);
-    const [otp, setOTP] = useState("");
-    const [generatedOTP, setGeneratedOTP] = useState("");
-    const [otpVerified, setOtpVerified] = useState(false);
-    const [resendDisabled, setResendDisabled] = useState(false);
-    const [countdown, setCountdown] = useState(30);
 
     //navigate
     const navigate = useNavigate();
@@ -113,48 +106,6 @@ function Appointment() {
 
     };
 
-    // Add these new functions after your existing handler functions
-    const generateOTP = () => {
-        const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
-        setGeneratedOTP(newOTP);
-        console.log("Generated OTP:", newOTP); // For demonstration purposes
-        return newOTP;
-    };
-
-    const handleSendOTP = () => {
-        if (!contactNumber || error) {
-            alert("Please enter a valid phone number first");
-            return;
-        }
-        
-        const newOTP = generateOTP();
-        setShowOTPInput(true);
-        setResendDisabled(true);
-        setCountdown(30);
-        
-        const timer = setInterval(() => {
-            setCountdown((prev) => {
-                if (prev <= 1) {
-                    clearInterval(timer);
-                    setResendDisabled(false);
-                    return 0;
-                }
-                return prev - 1;
-            });
-        }, 1000);
-
-        alert(`OTP sent to ${contactNumber}! (For demo: ${newOTP})`);
-    };
-
-    const handleVerifyOTP = () => {
-        if (otp === generatedOTP) {
-            setOtpVerified(true);
-            alert("Phone number verified successfully!");
-        } else {
-            alert("Invalid OTP. Please try again.");
-        }
-    };
-
     function formatObjectDate(dateObj) {
         // Extract the components of the date
         const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-11, so add 1
@@ -180,10 +131,6 @@ function Appointment() {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!otpVerified) {
-            alert("Please verify your phone number first!");
-            return;
-        }
         if (
             firstName &&
             lastName &&
@@ -277,7 +224,7 @@ function Appointment() {
                                     <DatePicker
                                         selected={selectedBirthDate}
                                         onChange={handleBirthDate}
-                                        placeholderText="Birth Date: MM/DD/YYYY"
+                                        placeholderText="Birth Date"
                                         showMonthDropdown
                                         showYearDropdown
                                         dropdownMode="select"
@@ -308,55 +255,25 @@ function Appointment() {
 
                                     <div className="appointment-contactNo">
                                         <label>Contact Number</label>
-                                        <div className="phone-verification-container">
-                                            <PhoneInput
-                                                className="phone-input"
-                                                country={"ph"}
-                                                value={contactNumber}
-                                                onChange={handlePhoneNumber}
-                                                inputProps={{
-                                                    name: "phone",
-                                                    required: true,
-                                                    autoFocus: true,
-                                                }}
-                                                disabled={otpVerified}
-                                            />
-                                            {!otpVerified && (
-                                                <button 
-                                                    onClick={handleSendOTP}
-                                                    disabled={resendDisabled || !contactNumber || error}
-                                                    className="send-otp-button"
-                                                >
-                                                    {resendDisabled ? `Resend in ${countdown}s` : 'Send OTP'}
-                                                </button>
-                                            )}
-                                        </div>
+                                        <PhoneInput
+                                            className="phone-input"
+                                            country={"ph"}
+                                            value={contactNumber}
+                                            onChange={handlePhoneNumber}
+                                            inputProps={{
+                                                name: "phone",
+                                                required: true,
+                                                autoFocus: true,
+                                            }}
+                                        />
                                         {error && (
-                                            <div style={{ color: "red", marginTop: "10px" }}>
+                                            <div
+                                                style={{
+                                                    color: "red",
+                                                    marginTop: "10px",
+                                                }}
+                                            >
                                                 {error}
-                                            </div>
-                                        )}
-                                        {showOTPInput && !otpVerified && (
-                                            <div className="otp-input-container">
-                                                <input
-                                                    type="text"
-                                                    maxLength="6"
-                                                    placeholder="Enter OTP"
-                                                    value={otp}
-                                                    onChange={(e) => setOTP(e.target.value)}
-                                                    className="otp-input"
-                                                />
-                                                <button 
-                                                    onClick={handleVerifyOTP}
-                                                    className="verify-otp-button"
-                                                >
-                                                    Verify OTP
-                                                </button>
-                                            </div>
-                                        )}
-                                        {otpVerified && (
-                                            <div className="verification-success">
-                                                ✓ Phone number verified
                                             </div>
                                         )}
                                     </div>

@@ -32,6 +32,7 @@
 
 .form-container {
     display: flex;
+    flex-direction: column;
     margin-top: 30px;
     border-radius: 20px;
     width: 55%;
@@ -196,8 +197,8 @@ padding: 0 0 0 10px;
 }
 
 .appointment-services {
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 
