@@ -1,3 +1,8 @@
+
+
+@media (max-width: 1920px) {
+   
+
 .home-container {
     display: flex;
     height: 90vh;
@@ -5,9 +10,9 @@
     background-color: #e1f0ff;
     z-index: -1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png');
-    background-size: 50rem; /* Make the image cover the entire screen */
-    background-position-y: 50px;
-    background-position-x: 575px;
+    background-size: 90rem !important;
+    background-position-y: -150px !important;
+    background-position-x: 100px !important;
     background-repeat: no-repeat;
     width: 100%;
 }
@@ -121,11 +126,516 @@
 
 
 
-
-@media (max-width: 150px) {
-   
 }
 
 
 
+@media (max-width: 1024px) {
+   
 
+    .home-container {
+        display: flex;
+        height: 90vh;
+        /* background-color: #a2e3f5; */
+        background-color: #e1f0ff;
+        z-index: -1; /* Make sure the content sits above the background */
+        background-image: url('../assets/bg.png');
+        background-size: 70rem !important;
+        background-position-y: -90px !important;
+        background-position-x: -9r0px !important;
+        background-repeat: no-repeat;
+        width: 100%;
+    }
+    
+    
+    .home-left {
+        flex: 1;
+        margin-top: 23vh;
+        margin-left: 90px;
+    }
+    
+    .home-right {
+        flex: 1;
+    }
+    
+    /* 8 CARE */
+    .home-e, .home-care {
+        font-family: Outfit;
+        font-size: 130px;
+        font-style: normal;
+        letter-spacing: 0.48px;
+        margin: 0;  /* Remove any default margin */
+        padding: 0; /* Remove any default padding */
+        line-height: 15px; /* Control line height */
+        overflow: hidden;
+    
+    }
+    
+    .home-e {
+        color: #272E6C;
+        font-weight: 200;
+    }
+    
+    .home-care {
+        color: #3946B5;
+        font-weight: 600;
+    }
+    
+    /* DENTAL CLINIC */
+    .home-clinic {
+        color: #272E6C;
+        font-family: Outfit;
+        font-size: 60px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 125.994%; /* 88.196px */
+        letter-spacing: 0.7px;
+    }
+    
+    
+    
+    /* SLOGAN */
+    .home-slogan {
+        color: #272E6C;
+        font-family: Outfit;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 300;
+        line-height: 125.994%; /* 35.278px */
+        letter-spacing: 0.28px;
+    }
+    
+    
+    
+    
+    
+    
+    /* BUTTONS */
+    
+    .home-buttons {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: row;
+        gap: 15px; /* Space between buttons */
+    }
+    
+    .home-appointment {
+        background-color: #3946B5;
+        color: white;
+        border: none;
+        
+    
+    }
+    
+    .home-services {
+        color: #3946B5;
+        border: #3946B5 1px solid;
+    }
+    
+    .home-appointment, .home-services {
+        font-family: Outfit;
+        font-size: 18px;
+        padding: 12px 24px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border-radius: 20px;
+    }
+    
+    .home-appointment:hover  {
+        background-color: #272E6C; /* Darker color on hover */
+    }
+    
+    .home-services:hover {
+        background-color: #272E6C; /* Darker color on hover */
+        color: white;
+        border: none;
+    }
+    
+    
+    
+    
+    
+    }
+
+
+
+    @media (max-width: 768px) {
+   
+
+        .home-container {
+            display: flex;
+            height: 90vh;
+            /* background-color: #a2e3f5; */
+            background-color: #e1f0ff;
+            z-index: -1; /* Make sure the content sits above the background */
+            background-image: url('../assets/bg.png');
+            background-size: 70rem !important;  /* Make the image cover the entire screen */
+            background-position-y: -75px !important;
+            background-position-x: -300px !important;
+            background-repeat: no-repeat;
+            width: 100%;
+        }
+        
+        
+        .home-left {
+            flex: 1;
+            margin-top: 23vh;
+            margin-left: 90px;
+        }
+        
+        .home-right {
+            flex: 1;
+        }
+        
+        /* 8 CARE */
+        .home-e, .home-care {
+            font-family: Outfit;
+            font-size: 100px;
+            font-style: normal;
+            letter-spacing: 0.48px;
+            margin: 0;  /* Remove any default margin */
+            padding: 0; /* Remove any default padding */
+            line-height: 15px; /* Control line height */
+            overflow: hidden;
+        
+        }
+        
+        .home-e {
+            color: #272E6C;
+            font-weight: 200;
+        }
+        
+        .home-care {
+            color: #3946B5;
+            font-weight: 600;
+        }
+        
+        /* DENTAL CLINIC */
+        .home-clinic {
+            color: #272E6C;
+            font-family: Outfit;
+            font-size: 48px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 125.994%; /* 88.196px */
+            letter-spacing: 0.7px;
+        }
+        
+        
+        
+        /* SLOGAN */
+        .home-slogan {
+            color: #272E6C;
+            font-family: Outfit;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 125.994%; /* 35.278px */
+            letter-spacing: 0.28px;
+        }
+        
+        
+        
+        
+        
+        
+        /* BUTTONS */
+        
+        .home-buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between buttons */
+            
+        }
+        
+        .home-appointment {
+            background-color: #3946B5;
+            color: white;
+            border: none;
+            
+        
+        }
+        
+        .home-services {
+            color: #3946B5;
+            border: #3946B5 1px solid;
+        }
+        
+        .home-appointment, .home-services {
+            font-family: Outfit;
+            font-size: 18px;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 20px;
+        }
+        
+        .home-appointment:hover  {
+            background-color: #272E6C; /* Darker color on hover */
+        }
+        
+        .home-services:hover {
+            background-color: #272E6C; /* Darker color on hover */
+            color: white;
+            border: none;
+        }
+        
+        
+        
+        
+        
+        }
+    
+    
+
+
+
+
+
+        @media (max-width: 568px) {
+   
+
+            .home-container {
+                display: flex;
+                height: 90vh;
+                /* background-color: #a2e3f5; */
+                background-color: #e1f0ff;
+                z-index: -1; /* Make sure the content sits above the background */
+                background-image: url('../assets/bg.png');
+                background-size: 70rem !important;  /* Make the image cover the entire screen */
+                background-position-y: -75px !important;
+                background-position-x: -300px !important;
+                background-repeat: no-repeat;
+                width: 100%;
+            }
+            
+            
+            .home-left {
+                flex: 1;
+                margin-top: 20vh;
+                margin-left: 40px;
+            }
+            
+            .home-right {
+                flex: 1;
+            }
+            
+            /* 8 CARE */
+            .home-e, .home-care {
+                font-family: Outfit;
+                font-size: 90px;
+                font-style: normal;
+                letter-spacing: 0.48px;
+                margin: 0;  /* Remove any default margin */
+                padding: 0; /* Remove any default padding */
+                line-height: 15px; /* Control line height */
+                overflow: hidden;
+            
+            }
+            
+            .home-e {
+                color: #272E6C;
+                font-weight: 200;
+            }
+            
+            .home-care {
+                color: #3946B5;
+                font-weight: 600;
+            }
+            
+            /* DENTAL CLINIC */
+            .home-clinic {
+                color: #272E6C;
+                font-family: Outfit;
+                font-size: 42px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 125.994%; /* 88.196px */
+                letter-spacing: 0.7px;
+            }
+            
+            
+            
+            /* SLOGAN */
+            .home-slogan {
+                color: #272E6C;
+                font-family: Outfit;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 300;
+                line-height: 125.994%; /* 35.278px */
+                letter-spacing: 0.28px;
+            }
+            
+            
+            
+            
+            
+            
+            /* BUTTONS */
+            
+            .home-buttons {
+                margin-top: 30px;
+                display: flex;
+                flex-direction: column;
+                gap: 15px; /* Space between buttons */
+                
+            }
+            
+            .home-appointment {
+                background-color: #3946B5;
+                color: white;
+                border: none;
+                
+            
+            }
+            
+            .home-services {
+                color: #3946B5;
+                border: #3946B5 1px solid;
+            }
+            
+            .home-appointment, .home-services {
+                font-family: Outfit;
+                font-size: 14px;
+                padding: 12px 24px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+                border-radius: 20px;
+            }
+            
+            .home-appointment:hover  {
+                background-color: #272E6C; /* Darker color on hover */
+            }
+            
+            .home-services:hover {
+                background-color: #272E6C; /* Darker color on hover */
+                color: white;
+                border: none;
+            }
+            
+            
+            
+            
+            
+            }
+        
+        
+    
+    
+            @media (max-width: 480px) {
+
+                .home-container {
+                    display: flex;
+                    flex-direction: column; /* Stack items vertically */
+                    justify-content: center; /* Center content horizontally */
+                    align-items: center; /* Center content vertically */
+                    height: 90vh;
+                    background-color: #e1f0ff;
+                    z-index: -1; /* Ensure content sits above the background */
+                    background-image: url('../assets/bg.png');
+                    background-size: 70rem !important; /* Make the image cover the entire screen */
+                    background-position-y: -75px !important;
+                    background-position-x: -300px !important;
+                    background-repeat: no-repeat;
+                    width: 100%;
+                }
+            
+                .home-left {
+                    margin-top: 20vh; /* Remove the margin for centering */
+                    margin-left: 0; /* Remove left margin */
+                    text-align: center; /* Center-align text content */
+                }
+            
+                .home-right {
+                    flex: 1;
+                }
+            
+                /* 8 CARE */
+                .home-e, .home-care {
+                    font-family: Outfit;
+                    font-size: 90px;
+                    font-style: normal;
+                    letter-spacing: 0.48px;
+                    margin: 0; /* Remove any default margin */
+                    padding: 0; /* Remove any default padding */
+                    line-height: 15px; /* Control line height */
+                    overflow: hidden;
+                    text-align: center; /* Center text */
+                }
+            
+                .home-e {
+                    color: #272E6C;
+                    font-weight: 200;
+                }
+            
+                .home-care {
+                    color: #3946B5;
+                    font-weight: 600;
+                }
+            
+                /* DENTAL CLINIC */
+                .home-clinic {
+                    color: #272E6C;
+                    font-family: Outfit;
+                    font-size: 42px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 125.994%; /* 88.196px */
+                    letter-spacing: 0.7px;
+                    text-align: center; /* Center-align text */
+                }
+            
+                /* SLOGAN */
+                .home-slogan {
+                    color: #272E6C;
+                    font-family: Outfit;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 300;
+                    line-height: 125.994%; /* 35.278px */
+                    letter-spacing: 0.28px;
+                    text-align: center;
+                }
+            
+                /* BUTTONS */
+                .home-buttons {
+                    margin-top: 30px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center; /* Center buttons horizontally */
+                    gap: 15px; /* Space between buttons */
+                }
+            
+                .home-appointment {
+                    background-color: #3946B5;
+                    color: white;
+                    border: none;
+                }
+            
+                .home-services {
+                    color: #3946B5;
+                    border: #3946B5 1px solid;
+                }
+            
+                .home-appointment, .home-services {
+                    font-family: Outfit;
+                    font-size: 14px;
+                    padding: 12px 24px;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                    border-radius: 20px;
+                }
+            
+                .home-appointment:hover {
+                    background-color: #272E6C; /* Darker color on hover */
+                }
+            
+                .home-services:hover {
+                    background-color: #272E6C; /* Darker color on hover */
+                    color: white;
+                    border: none;
+                }
+            }
+            
