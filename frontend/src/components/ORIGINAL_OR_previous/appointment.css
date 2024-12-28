@@ -17,40 +17,42 @@ html, body {
     background-color: #e1f0ff;
     z-index: 1;
     background-image: url('../assets/bg.png');
-    background-size: cover; /* Ensure background scales properly */
-    background-position: center;
+    background-size: 75rem;
+    background-position-x: 340px;
     background-repeat: no-repeat;
     width: 100%;
     justify-content: center;
     overflow: auto;  /* Allow scrolling inside */
-    padding-bottom: 30px;
+    background-size: cover; /* Make sure the background covers the entire container */
+    background-position: center;
+    padding-bottom: 30px; /* Add padding at the bottom if needed */
 }
 
 .form-container {
     display: flex;
-    flex-direction: column;
     margin-top: 30px;
     border-radius: 20px;
     width: 65%;
+    flex-shrink: 0;
     background-color: #fff;
+    flex-direction: column;
     padding: 20px;
-    min-height: 620px; /* Ensure the form doesn't shrink */
-    box-sizing: border-box; /* Include padding in the height calculation */
+    min-height: 620px; /* Make sure form is not shrinking too small */
 }
 
 .appointment-title {
     margin-top: 25px;
     margin-bottom: 20px;
+    width: 100%;
     text-align: center;
     color: #272E6C;
 }
 
 .appointment-content {
     display: flex;
-    gap: 50px; /* Reduced gap for better alignment */
-    margin: 0 20px;
-    width: 100%;
-    flex-wrap: wrap; /* Ensure content wraps properly on smaller screens */
+    gap: 75px;
+    margin-left: 19px;
+    margin-right: 19px;
 }
 
 .appointment-content h3 {
@@ -71,15 +73,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Adjusted alignment to prevent shifting */
-    flex: 1; /* Ensure equal width for both sides */
-}
-
-/* Ensure consistent spacing for OTP and appointment-right */
-.appointment-right {
-    margin-top: 20px;
-    padding: 0 15px; /* Add padding for consistency */
-    box-sizing: border-box; /* Prevent margin collapse */
+    justify-content: center;
 }
 
 .appointment-div1 {
@@ -98,6 +92,10 @@ html, body {
     width: 100%; /* Make the input fields responsive */
     max-width: 260px;
     margin-right: 15px;
+}
+
+.suffix {
+    width: 75px;
 }
 
 .appointment-div2 input {
@@ -207,71 +205,6 @@ html, body {
     border-radius: 10px;
 }
 
-.phone-verification-container {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-}
-
-
-.send-otp-button {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    height: 40px;
-    white-space: nowrap;
-}
-
-.send-otp-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
-
-.otp-input-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-    justify-content: center; /* Center OTP inputs */
-    flex-wrap: wrap; /* Ensure responsiveness */
-    width: 100%;
-}
-
-.otp-input {
-    width: 75px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    text-align: center;
-    letter-spacing: 2px;
-}
-
-.verify-otp-button {
-    padding: 8px 16px;
-    height: 50px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.verification-success {
-    color: #28a745;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.phone-input:disabled {
-    background-color: #f8f9fa;
-    cursor: not-allowed;
-}
-
 /* Responsive Styles */
 @media (max-width: 1200px) {
     .form-container {
@@ -333,17 +266,13 @@ html, body {
     .appointment-div2 input,
     .appointment-services-menu,
     .appointment-datepicker {
-        width: 100%;
+        width: 200%;
     }
 
     .set-appointment-button {
         width: 100%;
         max-width: 280px;
         font-size: 18px;
-    }
-
-    .appointment-services-menu{
-        width: 100%;
     }
 }
 
@@ -377,38 +306,65 @@ html, body {
         max-width: 240px;
         font-size: 16px;
     }
-
-    .appointment-div2 input {
-        width: 100%;
-        max-width: 350px;
-    }
-
-    .appointment-services-menu{
-        width: 100%;
-    }
 }
 
-@media (max-width: 530px) {
-    .appointment-div2 input {
-        width: 100%;
-        max-width: 350px;
-    }
 
-    .appointment-services-menu{
-        width: 100%;
-    }
-    
+.phone-verification-container {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
 }
 
-@media (max-width: 375px) {
-    .appointment-div2 input {
-        width: 85%;
-        max-width: 350px;
-    }
-
-    .appointment-services-menu{
-        width: 100%;
-    }
-    
+.send-otp-button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px;
+    white-space: nowrap;
 }
 
+.send-otp-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.otp-input-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.otp-input {
+    width: 75px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+.verify-otp-button {
+    padding: 8px 16px;
+    height: 50px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.verification-success {
+    color: #28a745;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.phone-input:disabled {
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
