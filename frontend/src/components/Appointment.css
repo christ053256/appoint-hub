@@ -138,7 +138,7 @@ html, body {
 
 .appointment-branch,
 .appointment-date {
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .appointment-datepicker {
@@ -148,8 +148,8 @@ html, body {
 }
 
 .appointment-services {
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .appointment-services-menu {
@@ -172,6 +172,8 @@ html, body {
 
 .appointment-submit button {
     text-decoration: none;
+    width: auto;
+    padding: 15px;
 }
 
 .set-appointment-button {
@@ -285,7 +287,9 @@ html, body {
     }
 
     .branch-button button {
-        width: 100%;
+        padding: 10px 10px;
+        width: 100px;
+        height: 40px;
         font-size: 14px;
     }
 
