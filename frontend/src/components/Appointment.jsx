@@ -38,6 +38,103 @@ function Appointment() {
     const [resendDisabled, setResendDisabled] = useState(false);
     const [countdown, setCountdown] = useState(30);
 
+    const [response, setResponse] = useState(null);
+
+    const generateOTP = () => {
+        const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
+        setGeneratedOTP(newOTP);
+        // console.log("Generated OTP:", newOTP); // Debugging
+        return newOTP;
+      };
+    
+    const sendMessage = async (phoneNumber, otp) => {
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", `App ${import.meta.env.VITE_INFOBIP_API_KEY}`);
+        // console.log("API Key:", import.meta.env.VITE_INFOBIP_API_KEY);
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Accept", "application/json");
+
+        const raw = JSON.stringify({
+            messages: [
+            {
+                destinations: [{ to: phoneNumber }],
+                from: "ServiceSMS",
+                text: `Your OTP is: ${otp}`,
+            },
+            ],
+        });
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow",
+        };
+
+        try {
+            const response = await fetch("https://api.infobip.com/sms/2/text/advanced", requestOptions);
+            const result = await response.json();
+            // console.log("SMS API Response:", result);
+            setShowOTPInput(true); // Show OTP input after sending
+        } catch (err) {
+            console.error("Error sending SMS:", err);
+            setError("Failed to send OTP. Please try again.");
+        }
+        };
+
+        const handleSendOTP = async (event) => {
+            event.preventDefault(); // Prevent page reload
+            if (!contactNumber) {
+                setError("Please enter a valid contact number.");
+                return;
+            }
+            setError(null);
+        
+            const otp = generateOTP();
+            await sendMessage(contactNumber, otp);
+        
+            setResendDisabled(true);
+            let timer = 30;
+            setCountdown(timer);
+            const interval = setInterval(() => {
+                timer -= 1;
+                setCountdown(timer);
+                if (timer === 0) {
+                    clearInterval(interval);
+                    setResendDisabled(false);
+                }
+            }, 1000);
+        };
+        
+    const handleVerifyOTP = () => {
+        if (otp === generatedOTP) {
+            setOtpVerified(true);
+            setError(null);
+        } else {
+            setError("Invalid OTP. Please try again.");
+        }
+    };
+
+    const handlePhoneNumber = (value) => {
+        // Update the input value directly
+        setContactNumber(value);
+
+        // Clean the input by removing spaces and any non-numeric characters except '+'
+        let cleanValue = value.replace(/\s+/g, "").replace(/[^0-9+]/g, "");
+
+        // Parse the cleaned phone number
+        const phoneNumber = parsePhoneNumberFromString(cleanValue, "PH");
+
+        // Check if the phone number is valid
+        if (phoneNumber && phoneNumber.isValid()) {
+            setError("");
+        } else {
+            setError("Invalid phone number. Please check the format.");
+        }
+
+    };
+
+
     //navigate
     const navigate = useNavigate();
 
@@ -94,67 +191,8 @@ function Appointment() {
         setSelectedService(event.target.value);
     };
 
-    const handlePhoneNumber = (value) => {
-        // Update the input value directly
-        setContactNumber(value);
 
-        // Clean the input by removing spaces and any non-numeric characters except '+'
-        let cleanValue = value.replace(/\s+/g, "").replace(/[^0-9+]/g, "");
-
-        // Parse the cleaned phone number
-        const phoneNumber = parsePhoneNumberFromString(cleanValue, "PH");
-
-        // Check if the phone number is valid
-        if (phoneNumber && phoneNumber.isValid()) {
-            setError("");
-        } else {
-            setError("Invalid phone number. Please check the format.");
-        }
-
-    };
-
-    // Add these new functions after your existing handler functions
-    const generateOTP = () => {
-        const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
-        setGeneratedOTP(newOTP);
-        console.log("Generated OTP:", newOTP); // For demonstration purposes
-        return newOTP;
-    };
-
-    const handleSendOTP = () => {
-        if (!contactNumber || error) {
-            alert("Please enter a valid phone number first");
-            return;
-        }
-        
-        const newOTP = generateOTP();
-        setShowOTPInput(true);
-        setResendDisabled(true);
-        setCountdown(30);
-        
-        const timer = setInterval(() => {
-            setCountdown((prev) => {
-                if (prev <= 1) {
-                    clearInterval(timer);
-                    setResendDisabled(false);
-                    return 0;
-                }
-                return prev - 1;
-            });
-        }, 1000);
-
-        alert(`OTP sent to ${contactNumber}! (For demo: ${newOTP})`);
-    };
-
-    const handleVerifyOTP = () => {
-        if (otp === generatedOTP) {
-            setOtpVerified(true);
-            alert("Phone number verified successfully!");
-        } else {
-            alert("Invalid OTP. Please try again.");
-        }
-    };
-
+    
     function formatObjectDate(dateObj) {
         // Extract the components of the date
         const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-11, so add 1
