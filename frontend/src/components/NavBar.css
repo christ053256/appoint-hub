@@ -177,7 +177,7 @@ nav ul li a.active {
 
         padding: 10px 0;
         position: absolute;
-        top: 50px; /* Adjust according to nav height */
+        top: 60px; /* Adjust according to nav height */
         left: 0;
         z-index: 10;
     }
@@ -263,7 +263,7 @@ nav ul li a.active {
         background-color: #ecf6ff;
         padding: 8px 0; /* Adjusted padding */
         position: absolute;
-        top: 40px; /* Adjusted for smaller nav height */
+        top: 50px; /* Adjusted for smaller nav height */
         left: 0;
         z-index: 10;
     }

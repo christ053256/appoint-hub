@@ -535,9 +535,9 @@
                     background-color: #e1f0ff;
                     z-index: -1; /* Ensure content sits above the background */
                     background-image: url('../assets/bg.png');
-                    background-size: 70rem !important; /* Make the image cover the entire screen */
-                    background-position-y: -75px !important;
-                    background-position-x: -300px !important;
+                    background-size: 90rem !important; /* Make the image cover the entire screen */
+                    background-position-y: -250px !important;
+                    background-position-x: -220px !important;
                     background-repeat: no-repeat;
                     width: 100%;
                 }
