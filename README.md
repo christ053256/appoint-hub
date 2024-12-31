@@ -1,6 +1,7 @@
 # New to this file
 
--   Database setup using firebase
+-   OTP using https://portal.infobip.com/ API
+-   100 free sms for 5 verified recepient IDK mag research pako: Currently looking for a better free SMS API
 
 # Tasks to Complete
 
