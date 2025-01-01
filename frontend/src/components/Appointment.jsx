@@ -47,20 +47,23 @@ function Appointment() {
         return newOTP;
       };
     
+    // Modified sendMessage function with fixed endpoint and error handling
     const sendMessage = async (phoneNumber, otp) => {
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `App ${import.meta.env.VITE_INFOBIP_API_KEY}`);
-        // console.log("API Key:", import.meta.env.VITE_INFOBIP_API_KEY);
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Accept", "application/json");
 
+        // Ensure phone number is in international format
+        const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+
         const raw = JSON.stringify({
             messages: [
-            {
-                destinations: [{ to: phoneNumber }],
-                from: "ServiceSMS",
-                text: `Your OTP is: ${otp}`,
-            },
+                {
+                    destinations: [{ to: formattedPhone }],
+                    from: "ServiceSMS",
+                    text: `Your OTP is: ${otp}`,
+                },
             ],
         });
 
@@ -72,15 +75,30 @@ function Appointment() {
         };
 
         try {
-            const response = await fetch("https://api.infobip.com/sms/2/text/advanced", requestOptions);
+            // Updated endpoint URL
+            const response = await fetch(
+                "https://8kr3g1.api.infobip.com/sms/2/text/advanced",
+                requestOptions
+            );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`SMS API Error: ${errorData.requestError?.serviceException?.text || 'Unknown error'}`);
+            }
+
             const result = await response.json();
-            // console.log("SMS API Response:", result);
-            setShowOTPInput(true); // Show OTP input after sending
+            if (result.messages?.[0]?.status?.groupName === 'REJECTED') {
+                throw new Error('Message rejected by provider');
+            }
+
+            setShowOTPInput(true);
+            return result;
         } catch (err) {
             console.error("Error sending SMS:", err);
-            setError("Failed to send OTP. Please try again.");
+            setError(err.message || "Failed to send OTP. Please try again.");
+            throw err;
         }
-        };
+    };
 
         const handleSendOTP = async (event) => {
             event.preventDefault(); // Prevent page reload

@@ -2,71 +2,96 @@ import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
 import logo from "../assets/logo.png";
 import FirebaseConfig from "./firebaseConfig/firebaseConfig.js";
-import { ref, get, child, onValue } from "firebase/database";
-import { confirmAppointment, rejectAppointment } from "../firebase";
+import { ref, onValue } from "firebase/database";
+import { confirmAppointment, rejectAppointment, completeAppointment, failedAppointment } from "../firebase";
 
 function Dashboard() {
     const database = FirebaseConfig();
     const [appointments, setAppointments] = useState([]);
     const [confirmedAppts, setConfirmedAppts] = useState([]);
     const [rejectedAppts, setRejectedAppts] = useState([]);
-    const [activeFilter, setActiveFilter] = useState('all');
+    const [completedAppts, setCompletedAppts] = useState([]);
+    const [failedAppts, setFailedAppts] = useState([]);
+    const [activeFilter, setActiveFilter] = useState('appointments');
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const appointmentsRef = ref(database, 'appointments');
-        const confirmedRef = ref(database, 'confirmed');
-        const rejectedRef = ref(database, 'rejected');
+        const handlePastAppointments = async (appointments) => {
+            const currentDate = new Date();
+            const pastAppointments = appointments.filter(app => {
+                const appointmentDate = new Date(app.appointDate);
+                return appointmentDate < currentDate && 
+                    !confirmedAppts.some(c => c.id === app.id) && 
+                    !rejectedAppts.some(r => r.id === app.id);
+            });
+
+            for (const appointment of pastAppointments) {
+                await rejectAppointment(appointment);
+            }
+        };
+
+        const refs = {
+            appointments: ref(database, 'appointments'),
+            confirmed: ref(database, 'confirmed'),
+            rejected: ref(database, 'rejected'),
+            completed: ref(database, 'completed'),
+            failed: ref(database, 'failed')
+        };
         
-        const unsubscribeAppointments = onValue(appointmentsRef, (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                const appointmentsList = Object.keys(data).map(key => ({
-                    id: key,
-                    ...data[key],
+        const unsubscribers = {};
+
+        Object.entries(refs).forEach(([key, reference]) => {
+            unsubscribers[key] = onValue(reference, (snapshot) => {
+                const data = snapshot.exists() ? snapshot.val() : {};
+                const list = Object.entries(data).map(([id, values]) => ({
+                    id,
+                    ...values,
                 }));
 
-                const sortedAppointments = appointmentsList.sort((a, b) => {
-                    const dateA = new Date(a.appointDate);
-                    const dateB = new Date(b.appointDate);
-                    return dateA - dateB;
-                });
-
-                setAppointments(sortedAppointments);
-            }
-        });
-
-        const unsubscribeConfirmed = onValue(confirmedRef, (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                const confirmedList = Object.keys(data).map(key => ({
-                    id: key,
-                    ...data[key],
-                }));
-                setConfirmedAppts(confirmedList);
-            } else {
-                setConfirmedAppts([]);
-            }
-        });
-
-        const unsubscribeRejected = onValue(rejectedRef, (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                const rejectedList = Object.keys(data).map(key => ({
-                    id: key,
-                    ...data[key],
-                }));
-                setRejectedAppts(rejectedList);
-            } else {
-                setRejectedAppts([]);
-            }
+                switch(key) {
+                    case 'appointments':
+                        const sortedList = list.sort((a, b) => 
+                            new Date(a.appointDate) - new Date(b.appointDate)
+                        );
+                        setAppointments(sortedList);
+                        handlePastAppointments(sortedList);
+                        break;
+                    case 'confirmed':
+                        setConfirmedAppts(list);
+                        break;
+                    case 'rejected':
+                        setRejectedAppts(list);
+                        break;
+                    case 'completed':
+                        setCompletedAppts(list);
+                        break;
+                    case 'failed':
+                        setFailedAppts(list);
+                        break;
+                }
+                setIsLoading(false);
+            }, (error) => {
+                console.error(`Error fetching ${key}:`, error);
+                setIsLoading(false);
+            });
         });
 
         return () => {
-            unsubscribeAppointments();
-            unsubscribeConfirmed();
-            unsubscribeRejected();
+            Object.values(unsubscribers).forEach(unsubscribe => unsubscribe());
         };
-    }, [database]);
+    }, [database, confirmedAppts, rejectedAppts]);
+
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleString('en-US', {
+            month: '2-digit',
+            day: '2-digit',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true
+        });
+    };
 
     const getFilteredAppointments = () => {
         switch(activeFilter) {
@@ -74,57 +99,92 @@ function Dashboard() {
                 return confirmedAppts;
             case 'rejected':
                 return rejectedAppts;
-            case 'pending':
-                return appointments.filter(app => 
-                    !confirmedAppts.find(c => c.id === app.id) && 
-                    !rejectedAppts.find(r => r.id === app.id)
-                );
+            case 'completed':
+                return completedAppts;
+            case 'failed':
+                return failedAppts;
             default:
                 return appointments;
         }
     };
 
-    const handleConfirmed = async (appointment) => {
+    const handleAppointmentAction = async (appointment, action) => {
         try {
-            await confirmAppointment(appointment);
+            setIsLoading(true);
+            switch(action) {
+                case 'confirm':
+                    await confirmAppointment(appointment);
+                    break;
+                case 'reject':
+                    await rejectAppointment(appointment);
+                    break;
+                case 'complete':
+                    await completeAppointment(appointment);
+                    break;
+                case 'fail':
+                    await failedAppointment(appointment);
+                    break;
+            }
         } catch (error) {
-            console.error("Error confirming appointment:", error);
-            alert('Failed to confirm appointment. Please try again.');
+            console.error(`Error ${action}ing appointment:`, error);
+            alert(`Failed to ${action} appointment. Please try again.`);
+        } finally {
+            setIsLoading(false);
         }
     };
 
-    const handleRejected = async (appointment) => {
-        try {
-            await rejectAppointment(appointment);
-        } catch (error) {
-            console.error("Error rejecting appointment:", error);
-            alert('Failed to reject appointment. Please try again.');
+    const renderActionButtons = (appointment) => {
+        switch(activeFilter) {
+            case 'confirmed':
+                return (
+                    <>
+                        <button 
+                            className="confirm-btn"
+                            onClick={() => handleAppointmentAction(appointment, 'complete')}
+                            disabled={isLoading}
+                        >
+                            Complete
+                        </button>
+                        <button 
+                            className="reject-btn"
+                            onClick={() => handleAppointmentAction(appointment, 'fail')}
+                            disabled={isLoading}
+                        >
+                            Failed
+                        </button>
+                    </>
+                );
+            case 'completed':
+                return 'Completed';
+            case 'failed':
+                return 'Failed';
+            case 'rejected':
+                return 'Rejected';
+            default:
+                return (
+                    <>
+                        <button 
+                            className="confirm-btn"
+                            onClick={() => handleAppointmentAction(appointment, 'confirm')}
+                            disabled={isLoading}
+                        >
+                            Confirm
+                        </button>
+                        <button 
+                            className="reject-btn"
+                            onClick={() => handleAppointmentAction(appointment, 'reject')}
+                            disabled={isLoading}
+                        >
+                            Reject
+                        </button>
+                    </>
+                );
         }
     };
 
-    // Function to render action buttons based on filter
-    const renderActionButtons = () => {
-        if (activeFilter === 'confirmed' || activeFilter === 'rejected') {
-            return <td className="confirmation-button">Status: {activeFilter}</td>;
-        }
-
-        return (
-            <td className="confirmation-button">
-                <button 
-                    className="confirm-btn"
-                    onClick={() => handleConfirmed(appointment)}
-                >
-                    Confirm
-                </button>
-                <button 
-                    className="reject-btn"
-                    onClick={() => handleRejected(appointment)}
-                >
-                    Reject
-                </button>
-            </td>
-        );
-    };
+    if (isLoading) {
+        return <div className="loading">Loading...</div>;
+    }
 
     return (
         <div className="dashboard-container">
@@ -136,18 +196,15 @@ function Dashboard() {
             <div className="dashboard-contents">
                 <div className="dashboard-background"></div>
                 <div className="dashboard-buttons">
-                    <button onClick={() => setActiveFilter('all')}>
-                        All
-                    </button>
-                    <button onClick={() => setActiveFilter('confirmed')}>
-                        Confirmed
-                    </button>
-                    <button onClick={() => setActiveFilter('rejected')}>
-                        Rejected
-                    </button>
-                    <button onClick={() => setActiveFilter('pending')}>
-                        Pending
-                    </button>
+                    {['appointments', 'confirmed', 'rejected', 'completed', 'failed'].map(filter => (
+                        <button 
+                            key={filter}
+                            onClick={() => setActiveFilter(filter)}
+                            className={activeFilter === filter ? 'active' : ''}
+                        >
+                            {filter.charAt(0).toUpperCase() + filter.slice(1)}
+                        </button>
+                    ))}
                 </div>
                 <div className="table-container">
                     <table>
@@ -160,32 +217,12 @@ function Dashboard() {
                         </thead>
                         <tbody>
                             {getFilteredAppointments().map((appointment) => (
-                                <tr
-                                    key={appointment.id}
-                                    className="appointment-list"
-                                >
+                                <tr key={appointment.id} className="appointment-list">
                                     <td>{`${appointment.first_name} ${appointment.middle_name} ${appointment.last_name}`}</td>
-                                    <td>{appointment.appointDate}</td>
-                                    {activeFilter === 'confirmed' ? (
-                                        <td className="confirmation-button">Confirmed</td>
-                                    ) : activeFilter === 'rejected' ? (
-                                        <td className="confirmation-button">Rejected</td>
-                                    ) : (
-                                        <td className="confirmation-button">
-                                            <button 
-                                                className="confirm-btn"
-                                                onClick={() => handleConfirmed(appointment)}
-                                            >
-                                                Confirm
-                                            </button>
-                                            <button 
-                                                className="reject-btn"
-                                                onClick={() => handleRejected(appointment)}
-                                            >
-                                                Reject
-                                            </button>
-                                        </td>
-                                    )}
+                                    <td>{formatDate(appointment.appointDate)}</td>
+                                    <td className="confirmation-button">
+                                        {renderActionButtons(appointment)}
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

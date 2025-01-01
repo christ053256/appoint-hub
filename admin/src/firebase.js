@@ -52,4 +52,41 @@ export async function rejectAppointment(appointment) {
   }
 }
 
+// Function to move confirmed data to completed table
+export async function completeAppointment(appointment) {
+  try {
+    // Step 1: Write the data to the 'completed' table
+    const completedRef = ref(db, 'completed/' + appointment.id);
+    await set(completedRef, appointment);
+
+    // Step 2: Remove the data from the 'confirmed' table
+    const confirmedRef = ref(db, 'confirmed/' + appointment.id);
+    await remove(confirmedRef);
+
+    console.log("Appointment moved to completed and removed from confirmed.");
+  } catch (error) {
+    console.error("Error completing appointment:", error);
+  }
+}
+
+
+// Function to move confirmed data to failed table
+export async function failedAppointment(appointment) {
+  try {
+    // Step 1: Write the data to the 'failed' table
+    const failedRef = ref(db, 'failed/' + appointment.id);
+    await set(failedRef, appointment);
+
+    // Step 2: Remove the data from the 'confirmed' table
+    const confirmedRef = ref(db, 'confirmed/' + appointment.id);
+    await remove(confirmedRef);
+
+    console.log("Appointment moved to failed and removed from confirmed.");
+  } catch (error) {
+    console.error("Error marking appointment as failed:", error);
+  }
+}
+
+
+
 

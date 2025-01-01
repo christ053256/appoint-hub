@@ -65,8 +65,14 @@ body {
 }
 
 
-
-
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.2rem;
+    color: #666;
+}
 
 @media (max-width: 1920px) {
     body {
