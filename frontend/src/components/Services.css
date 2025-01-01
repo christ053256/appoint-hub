@@ -1,42 +1,49 @@
-@media (max-width: 1920px) {
-/* Main container styling */
+/* General styles for all screen sizes */
 .services-container {
     display: flex;
-    flex-direction: column; /* Ensures the title and grid are stacked */
-    align-items: center; /* Centers the content horizontally */
-    justify-content: center; /* Centers the content vertically */
-    height: 90vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the top */
+    min-height: 90vh;
     width: 100%;
     background-color: #e1f0ff;
     z-index: -1;
     background-image: url('../assets/bg.png');
     background-size: 90rem !important;
-    background-position: 100px -150px !important; /* Cleaner shorthand */
+    background-position-y: -150px !important;
+    background-position-x: 100px !important;    
     background-repeat: no-repeat;
-    box-sizing: border-box; /* Ensure padding/borders don't affect width/height */
+    box-sizing: border-box;
 }
 
 /* Title styling */
 .services-container h1 {
     font-family: 'Outfit', sans-serif;
-    font-size: 3.5rem; /* Slightly larger for emphasis */
-    font-style: normal;
-    letter-spacing: 0.48px;
-    margin: 0 0 70px 0; /* Add bottom margin to separate from grid */
+    font-size: 3rem;
+    margin-top: 10vh; /* Push the title downward */
+    margin-bottom: 50px; /* Separate the title from the grid */
     padding: 0;
-    line-height: 1.2; /* Improve readability */
+    line-height: 1.2;
     color: #3946b5;
     font-weight: 500;
-    text-align: center; /* Ensures the title is centered */
+    text-align: center;
+}
+
+/* Grid container to enable scrolling */
+.services-grid-wrapper {
+    width: 90%;
+    max-width: 1200px;
+    max-height: 50vh; /* Define a maximum height for the grid */
+    overflow-y: auto; /* Allow vertical scrolling */
+    box-sizing: border-box;
 }
 
 /* Grid layout for services */
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    width: 80%; /* Adjust width to fit grid nicely within container */
-    max-width: 1200px; /* Prevent grid from stretching too much on large screens */
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -47,10 +54,10 @@
     padding: 20px;
     border-radius: 10px;
     font-size: 1rem;
-    text-align: center; /* Centers text inside the grid item */
+    text-align: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
-    font-family: 'Outfit', sans-serif; /* Match font family */
+    font-family: 'Outfit', sans-serif;
     font-weight: 400;
 }
 
@@ -59,5 +66,63 @@
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
+@media (max-width: 1024px) {
+    .services-container {
+        background-size: 70rem !important;
+        background-position-y: -90px !important;
+        background-position-x: -90px !important;
+        background-repeat: no-repeat;
+    }
+}
 
+@media (max-width: 768px) {
+    .services-container {
+        background-size: 70rem !important; 
+        background-position: -300px -75px !important;
+        background-repeat: no-repeat;
+    }
+}
+
+
+@media (max-width: 568px) {
+    .services-container {
+        background-size: 70rem !important;  /* Make the image cover the entire screen */
+        background-position-y: -70px !important;
+        background-position-x: -300px !important;
+        background-repeat: no-repeat;
+    }
+}
+
+
+
+@media (max-width: 480px) {
+
+    .services-container {
+        background-size: 90rem !important; /* Make the image cover the entire screen */
+        background-position-y: -250px !important;
+        background-position-x: -220px !important;
+        background-repeat: no-repeat;
+    }
+
+
+
+    .services-container h1 {
+        font-size: 2rem;
+        margin-top: 5vh; /* Maintain margin for smaller screens */
+        margin-bottom: 40px; /* Reduce spacing below the title */
+    }
+
+    .services-grid-wrapper {
+        max-height: 50vh; /* Reduce height for smaller screens */
+    }
+
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px; /* Reduce spacing between items */
+    }
+
+    .service-item {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
 }
