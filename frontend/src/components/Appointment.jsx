@@ -127,7 +127,8 @@ function Appointment() {
         }, 1000);
     };
 
-    const handleVerifyOTP = () => {
+    const handleVerifyOTP = (event) => {
+        event.preventDefault()
         if (otp === generatedOTP) {
             setOtpVerified(true);
             setError(null);
