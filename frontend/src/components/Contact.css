@@ -1,17 +1,201 @@
+/* Default styles for large screens */
+.contact-container {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    width: 100%;
+    background-color: #e1f0ff;
+    background-image: url('../assets/bg.png');
+    background-size: 90rem !important;
+    background-position-y: -150px !important;
+    background-position-x: 100px !important;
+    background-repeat: no-repeat;
+    z-index: -1;
+    padding: 20px;
+}
+
+.contact-header {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.contact-logo {
+    margin-left: -20px;
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+    text-decoration: none;
+}
+
+.contact-logo img {
+    height: 75px; /* Adjust logo size */
+    width: auto;
+}
+
+.contact-logo-e, .contact-logo-care {
+    font-family: Outfit;
+    font-size: 75px;
+    font-style: normal;
+    line-height: 125.994%;
+    letter-spacing: 0.48px;
+}
+
+.contact-logo-e {
+    color: #272E6C;
+    font-weight: 200;
+}
+
+.contact-logo-care {
+    color: #3946B5;
+    font-weight: 600;
+}
+
+.contact-clinic {
+    color: #272E6C;
+    font-family: Outfit;
+    font-size: 45px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 125.994%;
+    letter-spacing: 0.7px;
+}
+
+.contact-info {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    text-align: center;
+    width: 100%;
+}
+
+.contact-info h3 {
+    margin-top: 20px;
+    color: #3946b5;
+}
+
+.contact-info p {
+    margin: 10px 0;
+}
+
+.contact-info a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    text-decoration: underline;
+}
+
+/* Media query for screens up to 1920px */
 @media (max-width: 1920px) {
     .contact-container {
-        display: flex;
-        height: 90vh;
-        /* background-color: #a2e3f5; */
-        background-color: #e1f0ff;
-        z-index: -1; /* Make sure the content sits above the background */
-        background-image: url('../assets/bg.png');
         background-size: 90rem !important;
-    background-position-y: -150px !important;
-
+        background-position-y: -150px !important;
         background-position-x: 100px !important;
-        background-repeat: no-repeat;
-        width: 100%;
     }
 
+    .contact-logo img {
+        height: 65px; /* Adjust logo size on large screens */
+    }
+
+    .contact-logo-e, .contact-logo-care {
+        font-size: 70px; /* Adjust font size */
+    }
+
+
+}
+
+/* Media query for screens up to 1024px (tablets, smaller desktops) */
+@media (max-width: 1024px) {
+    .contact-container {
+        background-size: 70rem !important;
+        background-position-y: -90px !important;
+        background-position-x: -90px !important;
+        padding: 15px;
+    }
+
+    .contact-logo img {
+        height: 60px; /* Further reduce logo size */
+    }
+
+    .contact-logo-e, .contact-logo-care {
+        font-size: 60px; /* Adjust font size for medium screens */
+    }
+    .contact-clinic {
+        font-size: 38px;
+
+    }
+
+    .contact-info h3 {
+        font-size: 20px; /* Adjust heading size */
+    }
+}
+
+/* Media query for smaller screens (mobile) */
+@media (max-width: 768px) {
+    .contact-container {
+        background-size: 70rem !important; 
+        background-position: -300px -75px !important;
+        padding: 10px;
+    }
+
+    .contact-logo img {
+        height: 50px; /* Adjust logo size for mobile */
+    }
+
+    .contact-logo-e, .contact-logo-care {
+        font-size: 50px; /* Adjust font size for mobile */
+    }
+
+    .contact-clinic {
+        font-size: 32.5px;
+
+    }
+
+    .contact-info h3 {
+        font-size: 18px; /* Smaller heading size */
+    }
+}
+
+@media (max-width: 568px) {
+    .contact-container {
+        background-size: 70rem !important;  /* Make the image cover the entire screen */
+        background-position-y: -75px !important;
+        background-position-x: -300px !important;    }
+}
+
+
+
+/* Media query for extra small screens (portrait phones) */
+@media (max-width: 480px) {
+    .contact-container {
+        background-size: 90rem !important; /* Make the image cover the entire screen */
+        background-position-y: -250px !important;
+        background-position-x: -220px !important;
+       
+        padding: 5px;
+    }
+
+    .contact-logo img {
+        height: 40px; /* Smaller logo for very small screens */
+    }
+
+    .contact-logo-e, .contact-logo-care {
+        font-size: 40px; /* Reduce font size for very small screens */
+    }
+
+    .contact-clinic {
+        font-size: 27.5px;
+
+    }
+
+    .contact-info h3 {
+        font-size: 16px; /* Smaller heading size for very small screens */
+    }
+
+    .contact-info p {
+        font-size: 14px; /* Adjust font size for better readability */
+    }
 }
