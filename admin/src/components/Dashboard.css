@@ -1,3 +1,6 @@
+/*
+    Final CSS design
+*/
 * {
     font-family: 'Outfit', sans-serif;
 }
@@ -252,31 +255,24 @@ body {
         color: #272E6C;
 
     }
-    
 
-    .appointment-list {
-
+    .confirmation-button button {
+        width: 60px;
+        height: 30px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        margin: 2.5px;
+        border-radius: 5px;
     }
 
-.confirmation-button button {
-    width: 60px;
-    height: 30px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    margin: 2.5px;
-    border-radius: 5px;
-}
+    .confirm-btn {
+        background-color: green;
+    }
 
-.confirm-btn {
-    background-color: green;
-}
-
-.reject-btn {
-    background-color: red;
-}
-
-
+    .reject-btn {
+        background-color: red;
+    }
 }
 
 
