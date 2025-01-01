@@ -45,22 +45,25 @@ function Appointment() {
         setGeneratedOTP(newOTP);
         // console.log("Generated OTP:", newOTP); // Debugging
         return newOTP;
-      };
-    
+    };
+
     const sendMessage = async (phoneNumber, otp) => {
         const myHeaders = new Headers();
-        myHeaders.append("Authorization", `App ${import.meta.env.VITE_INFOBIP_API_KEY}`);
+        myHeaders.append(
+            "Authorization",
+            `App ${import.meta.env.VITE_INFOBIP_API_KEY}`
+        );
         // console.log("API Key:", import.meta.env.VITE_INFOBIP_API_KEY);
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Accept", "application/json");
 
         const raw = JSON.stringify({
             messages: [
-            {
-                destinations: [{ to: phoneNumber }],
-                from: "ServiceSMS",
-                text: `Your OTP is: ${otp}`,
-            },
+                {
+                    destinations: [{ to: phoneNumber }],
+                    from: "ServiceSMS",
+                    text: `Your OTP is: ${otp}`,
+                },
             ],
         });
 
@@ -72,7 +75,10 @@ function Appointment() {
         };
 
         try {
-            const response = await fetch("https://api.infobip.com/sms/2/text/advanced", requestOptions);
+            const response = await fetch(
+                "https://api.infobip.com/sms/2/text/advanced",
+                requestOptions
+            );
             const result = await response.json();
             // console.log("SMS API Response:", result);
             setShowOTPInput(true); // Show OTP input after sending
@@ -80,32 +86,32 @@ function Appointment() {
             console.error("Error sending SMS:", err);
             setError("Failed to send OTP. Please try again.");
         }
-        };
+    };
 
-        const handleSendOTP = async (event) => {
-            event.preventDefault(); // Prevent page reload
-            if (!contactNumber) {
-                setError("Please enter a valid contact number.");
-                return;
-            }
-            setError(null);
-        
-            const otp = generateOTP();
-            await sendMessage(contactNumber, otp);
-        
-            setResendDisabled(true);
-            let timer = 30;
+    const handleSendOTP = async (event) => {
+        event.preventDefault(); // Prevent page reload
+        if (!contactNumber) {
+            setError("Please enter a valid contact number.");
+            return;
+        }
+        setError(null);
+
+        const otp = generateOTP();
+        await sendMessage(contactNumber, otp);
+
+        setResendDisabled(true);
+        let timer = 30;
+        setCountdown(timer);
+        const interval = setInterval(() => {
+            timer -= 1;
             setCountdown(timer);
-            const interval = setInterval(() => {
-                timer -= 1;
-                setCountdown(timer);
-                if (timer === 0) {
-                    clearInterval(interval);
-                    setResendDisabled(false);
-                }
-            }, 1000);
-        };
-        
+            if (timer === 0) {
+                clearInterval(interval);
+                setResendDisabled(false);
+            }
+        }, 1000);
+    };
+
     const handleVerifyOTP = () => {
         if (otp === generatedOTP) {
             setOtpVerified(true);
@@ -131,9 +137,7 @@ function Appointment() {
         } else {
             setError("Invalid phone number. Please check the format.");
         }
-
     };
-
 
     //navigate
     const navigate = useNavigate();
@@ -191,31 +195,29 @@ function Appointment() {
         setSelectedService(event.target.value);
     };
 
-
-    
     function formatObjectDate(dateObj) {
         // Extract the components of the date
-        const month = String(dateObj.getMonth() + 1).padStart(2, '0'); // getMonth() returns 0-11, so add 1
-        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = String(dateObj.getMonth() + 1).padStart(2, "0"); // getMonth() returns 0-11, so add 1
+        const day = String(dateObj.getDate()).padStart(2, "0");
         const year = dateObj.getFullYear();
-        
+
         let hour = dateObj.getHours();
-        const minute = String(dateObj.getMinutes()).padStart(2, '0');
-        
+        const minute = String(dateObj.getMinutes()).padStart(2, "0");
+
         // Determine AM/PM
-        const period = hour >= 12 ? 'PM' : 'AM';
-        
+        const period = hour >= 12 ? "PM" : "AM";
+
         // Convert to 12-hour format
         if (hour > 12) {
-            hour -= 12;  // Convert to 12-hour format
+            hour -= 12; // Convert to 12-hour format
         } else if (hour === 0) {
-            hour = 12;  // Midnight case
+            hour = 12; // Midnight case
         }
-    
+
         // Return the formatted date string
         return `${month}/${day}/${year} ${hour}:${minute} ${period}`;
     }
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!otpVerified) {
@@ -344,59 +346,78 @@ function Appointment() {
                                         onChange={handleCity}
                                     />
 
+                                    <label>Contact Number</label>
                                     <div className="appointment-contactNo">
-                                        <label>Contact Number</label>
                                         <div className="phone-verification-container">
-                                            <PhoneInput
-                                                className="phone-input"
-                                                country={"ph"}
-                                                value={contactNumber}
-                                                onChange={handlePhoneNumber}
-                                                inputProps={{
-                                                    name: "phone",
-                                                    required: true,
-                                                    autoFocus: true,
-                                                }}
-                                                disabled={otpVerified}
-                                            />
-                                            {!otpVerified && (
-                                                <button 
-                                                    onClick={handleSendOTP}
-                                                    disabled={resendDisabled || !contactNumber || error}
-                                                    className="send-otp-button"
+                                            <div className="phone-input-wrapper">
+                                                <PhoneInput
+                                                    className="phone-input"
+                                                    country={"ph"}
+                                                    value={contactNumber}
+                                                    onChange={handlePhoneNumber}
+                                                    inputProps={{
+                                                        name: "phone",
+                                                        required: true,
+                                                        autoFocus: true,
+                                                    }}
+                                                    disabled={otpVerified}
+                                                />
+                                                {!otpVerified && (
+                                                    <button
+                                                        onClick={handleSendOTP}
+                                                        disabled={
+                                                            resendDisabled ||
+                                                            !contactNumber ||
+                                                            error
+                                                        }
+                                                        className="send-otp-button"
+                                                    >
+                                                        {resendDisabled
+                                                            ? `Resend in ${countdown}s`
+                                                            : "Send OTP"}
+                                                    </button>
+                                                )}
+                                            </div>
+                                            {error && (
+                                                <div
+                                                    style={{
+                                                        color: "red",
+                                                        marginTop: "10px",
+                                                    }}
                                                 >
-                                                    {resendDisabled ? `Resend in ${countdown}s` : 'Send OTP'}
-                                                </button>
+                                                    {error}
+                                                </div>
+                                            )}
+                                            {showOTPInput && !otpVerified && (
+                                                <div className="otp-input-container">
+                                                    <input
+                                                        type="text"
+                                                        maxLength="6"
+                                                        placeholder="Enter OTP"
+                                                        value={otp}
+                                                        onChange={(e) =>
+                                                            setOTP(
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        className="otp-input"
+                                                    />
+                                                    <button
+                                                        onClick={
+                                                            handleVerifyOTP
+                                                        }
+                                                        className="verify-otp-button"
+                                                    >
+                                                        Verify OTP
+                                                    </button>
+                                                </div>
+                                            )}
+                                            {otpVerified && (
+                                                <div className="verification-success">
+                                                    ✓ Phone number verified
+                                                </div>
                                             )}
                                         </div>
-                                        {error && (
-                                            <div style={{ color: "red", marginTop: "10px" }}>
-                                                {error}
-                                            </div>
-                                        )}
-                                        {showOTPInput && !otpVerified && (
-                                            <div className="otp-input-container">
-                                                <input
-                                                    type="text"
-                                                    maxLength="6"
-                                                    placeholder="Enter OTP"
-                                                    value={otp}
-                                                    onChange={(e) => setOTP(e.target.value)}
-                                                    className="otp-input"
-                                                />
-                                                <button 
-                                                    onClick={handleVerifyOTP}
-                                                    className="verify-otp-button"
-                                                >
-                                                    Verify OTP
-                                                </button>
-                                            </div>
-                                        )}
-                                        {otpVerified && (
-                                            <div className="verification-success">
-                                                ✓ Phone number verified
-                                            </div>
-                                        )}
                                     </div>
                                 </form>
                             </div>

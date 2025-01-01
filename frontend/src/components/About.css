@@ -21,12 +21,10 @@
         flex: 1;
         margin-top: 12vh;
         margin-left: 90px;
+        margin-right: 30vw;
     }
     
-    .about-right {
-        flex: 1;
-    }
-    
+   
     .about-d {
         font-family: Outfit;
         font-size: 80px;
@@ -35,19 +33,17 @@
         margin: 0;  /* Remove any default margin */
         padding: 0; /* Remove any default padding */
         line-height: 15px; /* Control line height */
-    }
-    
-    .about-d {
         color: #3946B5;
         font-weight: 500;
     }
+
     
     /* SLOGAN */
     .about-p {
         margin-top: 5vh;
         color: #272E6C;
         font-family: Outfit;
-        font-size: 22px;
+        font-size: 24px;
         font-style: normal;
         font-weight: 300;
         line-height: 125.994%; /* 35.278px */
@@ -55,4 +51,105 @@
     }
     
     
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        display: flex;
+        height: 90vh;
+        /* background-color: #a2e3f5; */
+        background-color: #e1f0ff;
+        z-index: -1; /* Make sure the content sits above the background */
+        background-image: url('../assets/bg.png');
+        background-size: 50rem !important;  /* Make the image cover the entire screen */
+        background-position-y: 100px !important;
+        background-position-x: 0px !important;
+        background-repeat: no-repeat;
+        width: 100%;
+    }
+
+    @media screen and (max-width: 768px) {
+        .about-title {
+            flex: 1;
+            margin-top: 10vh; /* Adjust margin for smaller screens */
+            margin-left: auto; /* Center the title horizontally */
+            margin-right: auto;
+            text-align: center; /* Center align the text */
+        }
+        
+        .about-right {
+            flex: 1;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: justify; /* Justify text alignment */
+        }
+        
+        .about-d {
+            font-size: 60px; /* Adjust font size for smaller screens */
+            line-height: 1.2; /* Adjust line height */
+            margin: 0 auto; /* Center horizontally */
+            text-align: center; /* Center align */
+        }
+    
+        .about-p {
+            font-size: 18px; /* Adjust font size for smaller screens */
+            margin-top: 3vh; /* Adjust margin for spacing */
+            text-align: justify; /* Justify text alignment */
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 90%; /* Restrict width for better readability */
+        }
+    }
+
+}
+
+
+@media (max-width: 480px) {
+    .about-container {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        justify-content: center; /* Center content horizontally */
+        align-items: center; /* Center content vertically */
+        height: 90vh;
+        background-color: #e1f0ff;
+        z-index: -1; /* Ensure content sits above the background */
+        background-image: url('../assets/bg.png');
+        background-size: 90rem !important; /* Make the image cover the entire screen */
+        background-position-y: -250px !important;
+        background-position-x: -220px !important;
+        background-repeat: no-repeat;
+        width: 100%;
+    }
+
+    .about-title {
+        flex: 1;
+        margin-top: 8vh; /* Adjust margin for smaller screens */
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center; /* Center align the text */
+    }
+    
+    .about-right {
+        flex: 1;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: justify; /* Justify text alignment */
+        padding: 10px; /* Add padding for better spacing */
+    }
+    
+    .about-d {
+        font-size: 50px; /* Reduce font size for smaller screens */
+        line-height: 1.2; /* Adjust line height */
+        margin: 0 auto; /* Center horizontally */
+        text-align: center; /* Center align */
+    }
+
+    .about-p {
+        font-size: 16px; /* Further reduce font size */
+        margin-top: 3vh; /* Adjust margin for spacing */
+        text-align: justify; /* Justify text alignment */
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 95%; /* Restrict width for readability */
+    }
 }

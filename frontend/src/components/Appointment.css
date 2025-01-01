@@ -5,6 +5,8 @@
     font-family: 'Outfit', sans-serif;
 }
 
+
+
 .appointment-container {
     display: flex;
     height: 90vh;
@@ -29,18 +31,15 @@
 
 }
 
-
 .form-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 30px;
-    border-radius: 20px;
-    width: 55%;
-    height: 620px;
-    flex-shrink: 0;
-    background-color: #fff;
-    flex-direction: column;
-    
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  border-radius: 20px;
+  width: 55%;
+  max-height: 90vh; /* Ensure it doesn’t exceed the viewport height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  background-color: #fff;
 }
 
 .appointment-title {
@@ -82,13 +81,12 @@ padding: 0 0 0 10px;
 
 /* APPOINTMENT FORM (LEFT POINT) */
 .appointment-left {
-    width: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align items to the top */
 }
 
 
@@ -137,6 +135,48 @@ padding: 0 0 0 10px;
     margin-bottom: 20px;
 }
 
+.send-otp-button {
+  font-size: 16px;
+  margin: 10px;
+  width: 130px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid #727272; /* Border styling */
+  background-color: #f0f0f0; /* Light gray background */
+  color: black; /* Default text color */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover Effect */
+.send-otp-button,
+.verify-otp-button {
+    font-size: 16px;
+    margin: 10px;
+    width: 130px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 20px;
+    border: 1px solid #727272; /* Border styling */
+    background-color: #f0f0f0; /* Light gray background */
+    color: black; /* Default text color */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+/* Hover Effect */
+.send-otp-button:hover,
+.verify-otp-button:hover {
+    background-color: #2e3894; /* Dark blue background */
+    color: white; /* White text */
+}
+
+/* Disabled State (Optional) */
+.send-otp-button:disabled,
+.verify-otp-button:disabled {
+    background-color: #ccc; /* Light gray for disabled state */
+    color: #888; /* Muted text color */
+    cursor: not-allowed; /* Change cursor for disabled buttons */
+}
 
 
 
