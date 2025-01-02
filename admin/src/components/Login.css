@@ -12,13 +12,6 @@ body, html {
 }
 
 
-/* #root {
-    background-color: #e1f0ff;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-    width: 10px;
-} */
 
 .login-container {
     height: 100vh;
@@ -32,9 +25,9 @@ body {
     background-color: #e1f0ff;
     z-index: -1; /* Make sure the content sits above the background */
     background-image: url('../assets/bg.png');
-    background-size: 80rem; /* Make the image cover the entire screen */
-    background-position-y: -100px;
-    background-position-x: 5    40px;
+    background-size: 70rem !important;  /* Make the image cover the entire screen */
+    background-position-y: -75px !important;
+    background-position-x: -300px !important;
     background-repeat: no-repeat;
     /* background-attachment: fixed;     */
 }
@@ -170,15 +163,45 @@ input:focus {
     background-color: #1d204d; /* Even darker blue for active state */
 }
 
+@media (max-width: 1024px) {
+    body {
+        /* background-color: #a2e3f5; */
+        background-color: #e1f0ff;
+        z-index: -1; /* Make sure the content sits above the background */
+        background-image: url('../assets/bg.png');
+        background-size: 70rem !important;
+        background-position-y: -90px !important;
+        background-position-x: -90px !important;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed;     */
+    }
+}
+
+
+@media (max-width: 768px) {
+    body {
+        /* background-color: #a2e3f5; */
+        background-color: #e1f0ff;
+        z-index: -1; /* Make sure the content sits above the background */
+        background-image: url('../assets/bg.png');
+        background-size: 70rem !important; 
+        background-position: -300px -75px !important;
+        background-repeat: no-repeat;
+        /* background-attachment: fixed;     */
+    }
+}
+
+
+
 @media (max-width: 480px) {
     body {
         /* background-color: #a2e3f5; */
         background-color: #e1f0ff;
         z-index: -1; /* Make sure the content sits above the background */
         background-image: url('../assets/bg.png');
-        background-size: 70rem !important;  /* Make the image cover the entire screen */
-        background-position-y: -75px !important;
-        background-position-x: -300px !important;
+        background-size: 90rem !important; /* Make the image cover the entire screen */
+        background-position-y: -250px !important;
+        background-position-x: -220px !important;
         background-repeat: no-repeat;
     }
     
