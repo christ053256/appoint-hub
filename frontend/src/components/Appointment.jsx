@@ -25,7 +25,18 @@ function Appointment() {
     const [City, setCity] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [selectedBranch, setBranch] = useState("");
-    const services = ["Service 1", "Service 2", "Service 3"];
+    const services = [
+        "Braces",
+        "Teeth Whitening",
+        "Dental Implants",
+        "Root Canal Treatment",
+        "Regular Checkups",
+        "Cosmetic Dentistry",
+        "Oral Surgery",
+        "Periodontal Therapy",
+        "Crowns & Bridges",
+        "Fillings",
+    ];
     const [selectedService, setSelectedService] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
@@ -58,7 +69,9 @@ function Appointment() {
         myHeaders.append("Accept", "application/json");
 
         // Ensure phone number is in international format
-        const formattedPhone = phoneNumber.startsWith('+') ? phoneNumber : `+${phoneNumber}`;
+        const formattedPhone = phoneNumber.startsWith("+")
+            ? phoneNumber
+            : `+${phoneNumber}`;
 
         const raw = JSON.stringify({
             messages: [
@@ -86,12 +99,17 @@ function Appointment() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                throw new Error(`SMS API Error: ${errorData.requestError?.serviceException?.text || 'Unknown error'}`);
+                throw new Error(
+                    `SMS API Error: ${
+                        errorData.requestError?.serviceException?.text ||
+                        "Unknown error"
+                    }`
+                );
             }
 
             const result = await response.json();
-            if (result.messages?.[0]?.status?.groupName === 'REJECTED') {
-                throw new Error('Message rejected by provider');
+            if (result.messages?.[0]?.status?.groupName === "REJECTED") {
+                throw new Error("Message rejected by provider");
             }
 
             setShowOTPInput(true);
@@ -128,7 +146,7 @@ function Appointment() {
     };
 
     const handleVerifyOTP = (event) => {
-        event.preventDefault()
+        event.preventDefault();
         if (otp === generatedOTP) {
             setOtpVerified(true);
             setError(null);
