@@ -269,20 +269,30 @@ function Dashboard() {
                             </tr>
                         </thead>
                         <tbody>
-                            {getFilteredAppointments().map((appointment) => (
-                                <tr
-                                    key={appointment.id}
-                                    className="appointment-list"
-                                >
-                                    <td>{`${appointment.first_name} ${appointment.middle_name} ${appointment.last_name}`}</td>
-                                    <td>
-                                        {formatDate(appointment.appointDate)}
-                                    </td>
-                                    <td className="confirmation-button">
-                                        {renderActionButtons(appointment)}
+                            {getFilteredAppointments().length > 0 ? (
+                                getFilteredAppointments().map((appointment) => (
+                                    <tr
+                                        key={appointment.id}
+                                        className="appointment-list"
+                                    >
+                                        <td>{`${appointment.first_name} ${appointment.middle_name} ${appointment.last_name}`}</td>
+                                        <td>
+                                            {formatDate(
+                                                appointment.appointDate
+                                            )}
+                                        </td>
+                                        <td className="confirmation-button">
+                                            {renderActionButtons(appointment)}
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan="3" className="empty-message">
+                                        No appointments available.
                                     </td>
                                 </tr>
-                            ))}
+                            )}
                         </tbody>
                     </table>
                 </div>

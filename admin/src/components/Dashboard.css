@@ -18,6 +18,14 @@ body {
     /* background-attachment: fixed;     */
 }
 
+.empty-message {
+    margin-top: 50px;
+    text-align: center;-moz-user-modify: ;
+    font-style: italic;
+    color: gray;
+}
+
+
 
 .dashboard-container {
     height: 100vh;

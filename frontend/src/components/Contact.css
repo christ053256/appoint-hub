@@ -35,7 +35,8 @@
     width: auto;
 }
 
-.contact-logo-e, .contact-logo-care {
+.contact-logo-e,
+.contact-logo-care {
     font-family: Outfit;
     font-size: 75px;
     font-style: normal;
@@ -44,17 +45,17 @@
 }
 
 .contact-logo-e {
-    color: #272E6C;
+    color: #272e6c;
     font-weight: 200;
 }
 
 .contact-logo-care {
-    color: #3946B5;
+    color: #3946b5;
     font-weight: 600;
 }
 
 .contact-clinic {
-    color: #272E6C;
+    color: #272e6c;
     font-family: Outfit;
     font-size: 45px;
     font-style: normal;
@@ -63,11 +64,22 @@
     letter-spacing: 0.7px;
 }
 
+/* Contact info and map section */
+.contact-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
 .contact-info {
+    flex: 1;
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    text-align: center;
-    width: 100%;
+    text-align: left;
 }
 
 .contact-info h3 {
@@ -88,114 +100,254 @@
     text-decoration: underline;
 }
 
+.contact-map {
+    flex: 1;
+    text-align: center;
+}
+
+.contact-map p {
+    margin-bottom: 15px;
+}
+
+
+.contact-map img {
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Modal overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* Modal content */
+.modal-content {
+    position: relative;
+    background-color: white;
+    border-radius: 8px;
+    max-width: 80%; /* You can adjust this value */
+    max-height: 80%;
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #3946b5;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #272e6c;
+}
+
+
+
+
+
 /* Media query for screens up to 1920px */
 @media (max-width: 1920px) {
+    .contact-logo img {
+        height: 65px;
+    }
+
+    .contact-logo-e,
+    .contact-logo-care {
+        font-size: 70px;
+    }
+
+    
+}
+
+
+@media (max-width: 768px) {
+    /* Default styles for small screens */
     .contact-container {
+        display: flex;
+        flex-direction: column; /* Stack content vertically */
+        align-items: center;
+        justify-content: flex-start; /* Keep content aligned at the top */
+        height: 100vh; /* Full height of the screen */
+        width: 100%;
+        background-color: #e1f0ff;
+        background-image: url('../assets/bg.png');
         background-size: 90rem !important;
         background-position-y: -150px !important;
         background-position-x: 100px !important;
+        background-repeat: no-repeat;
+        z-index: -1;
+        padding: 20px;
+        overflow-y: auto; /* Allow the entire container to be scrollable */
     }
 
-    .contact-logo img {
-        height: 65px; /* Adjust logo size on large screens */
+    .contact-header {
+        justify-content: center;
+        text-align: center;
+        width: 100%;
     }
 
-    .contact-logo-e, .contact-logo-care {
-        font-size: 70px; /* Adjust font size */
+    /* Contact info and map section */
+    .contact-content {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center content */
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
     }
 
-
-}
-
-/* Media query for screens up to 1024px (tablets, smaller desktops) */
-@media (max-width: 1024px) {
-    .contact-container {
-        background-size: 70rem !important;
-        background-position-y: -90px !important;
-        background-position-x: -90px !important;
-        padding: 15px;
-    }
-
-    .contact-logo img {
-        height: 60px; /* Further reduce logo size */
-    }
-
-    .contact-logo-e, .contact-logo-care {
-        font-size: 60px; /* Adjust font size for medium screens */
-    }
-    .contact-clinic {
-        font-size: 38px;
-
+    .contact-info {
+        flex: 1;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        text-align: justify; /* Justify the text */
+        padding-right: 10px; /* To avoid text touching the edge */
     }
 
     .contact-info h3 {
-        font-size: 20px; /* Adjust heading size */
-    }
-}
-
-/* Media query for smaller screens (mobile) */
-@media (max-width: 768px) {
-    .contact-container {
-        background-size: 70rem !important; 
-        background-position: -300px -75px !important;
-        padding: 10px;
-    }
-
-    .contact-logo img {
-        height: 50px; /* Adjust logo size for mobile */
-    }
-
-    .contact-logo-e, .contact-logo-care {
-        font-size: 50px; /* Adjust font size for mobile */
-    }
-
-    .contact-clinic {
-        font-size: 32.5px;
-
-    }
-
-    .contact-info h3 {
-        font-size: 18px; /* Smaller heading size */
-    }
-}
-
-@media (max-width: 568px) {
-    .contact-container {
-        background-size: 70rem !important;  /* Make the image cover the entire screen */
-        background-position-y: -75px !important;
-        background-position-x: -300px !important;    }
-}
-
-
-
-/* Media query for extra small screens (portrait phones) */
-@media (max-width: 480px) {
-    .contact-container {
-        background-size: 90rem !important; /* Make the image cover the entire screen */
-        background-position-y: -250px !important;
-        background-position-x: -220px !important;
-       
-        padding: 5px;
-    }
-
-    .contact-logo img {
-        height: 40px; /* Smaller logo for very small screens */
-    }
-
-    .contact-logo-e, .contact-logo-care {
-        font-size: 40px; /* Reduce font size for very small screens */
-    }
-
-    .contact-clinic {
-        font-size: 27.5px;
-
-    }
-
-    .contact-info h3 {
-        font-size: 16px; /* Smaller heading size for very small screens */
+        margin-top: 20px;
+        color: #3946b5;
+        text-align: center; /* Center the header */
     }
 
     .contact-info p {
-        font-size: 14px; /* Adjust font size for better readability */
+        margin: 10px 0;
+        font-size: 14px;
+        text-align: center; /* Center the header */
     }
+
+    .contact-info a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline;
+    }
+
+    .contact-map {
+        flex: 1;
+        text-align: center;
+        width: 100%;
+    }
+
+    .contact-map p {
+        margin-bottom: 10px;
+    }
+
+    .contact-map img {
+        cursor: pointer;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+}
+
+@media (max-width: 480px) {
+    /* Default styles for small screens */
+    .contact-container {
+        display: flex;
+        flex-direction: column; /* Stack content vertically */
+        align-items: center;
+        justify-content: flex-start; /* Keep content aligned at the top */
+        height: 100vh; /* Full height of the screen */
+        width: 100%;
+        background-color: #e1f0ff;
+        background-image: url('../assets/bg.png');
+        background-size: 90rem !important;
+        background-position-y: -150px !important;
+        background-position-x: 100px !important;
+        background-repeat: no-repeat;
+        z-index: -1;
+        padding: 20px;
+        overflow-y: auto; /* Allow the entire container to be scrollable */
+    }
+
+    .contact-header {
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Contact info and map section */
+    .contact-content {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center content */
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .contact-info {
+        flex: 1;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        text-align: justify; /* Justify the text */
+        padding-right: 10px; /* To avoid text touching the edge */
+    }
+
+    .contact-info h3 {
+        margin-top: 20px;
+        color: #3946b5;
+        text-align: center; /* Center the header */
+    }
+
+    .contact-info p {
+        margin: 10px 0;
+        font-size: 14px;
+        text-align: justify; /* Justify paragraph text */
+    }
+
+    .contact-info a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    .contact-info a:hover {
+        text-decoration: underline;
+    }
+
+    .contact-map {
+        flex: 1;
+        text-align: center;
+        width: 100%;
+    }
+
+    .contact-map p {
+        margin-bottom: 10px;
+    }
+
+    .contact-map img {
+        cursor: pointer;
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
 }
