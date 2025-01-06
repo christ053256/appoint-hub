@@ -4,7 +4,7 @@
     font-family: 'Outfit', sans-serif;
 }
 
-@media (max-width: 1920px) {
+
     .confirmation-container {
         display: flex;
         height: 90vh;
@@ -30,6 +30,11 @@
     justify-content: center;
     align-items: center;
     text-align: center; /* Center text */
+    background-color: white;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    width: 500px;
+    border-radius: 30px;
   }
 
 .confirmation-placeholder h1 {
@@ -88,7 +93,7 @@
   }
 
 
-}
+
 
 
 @media (max-width: 768px) {
@@ -107,6 +112,20 @@
         justify-content: center;
 
     }
+
+    .confirmation-placeholder {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center; /* Center text */
+        background-color: white;
+        margin-top: 25px;
+        margin-bottom: 25px;
+        height: 525px;
+        width: 350px;
+        border-radius: 30px;
+      }
 
     .confirmation-placeholder h1 {
         margin-bottom: 50px;

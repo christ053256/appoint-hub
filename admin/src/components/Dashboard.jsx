@@ -19,6 +19,8 @@ function Dashboard() {
     const [failedAppts, setFailedAppts] = useState([]);
     const [activeFilter, setActiveFilter] = useState("appointments");
     const [isLoading, setIsLoading] = useState(true);
+    const [selectedAppointment, setSelectedAppointment] = useState(null); // New state for selected appointment
+    const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
 
     useEffect(() => {
         const handlePastAppointments = async (appointments) => {
@@ -205,6 +207,16 @@ function Dashboard() {
         }
     };
 
+    const openModal = (appointment) => {
+        setSelectedAppointment(appointment);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedAppointment(null);
+    };
+
     if (isLoading) {
         return <div className="loading">Loading...</div>;
     }
@@ -219,7 +231,6 @@ function Dashboard() {
             <div className="dashboard-contents">
                 <div className="dashboard-background"></div>
 
-                {/* Buttons for larger screens */}
                 <div className="dashboard-buttons">
                     {[
                         "appointments",
@@ -238,27 +249,6 @@ function Dashboard() {
                     ))}
                 </div>
 
-                {/* Dropdown for smaller screens */}
-                <div className="dashboard-dropdown">
-                    <select
-                        onChange={(e) => setActiveFilter(e.target.value)}
-                        value={activeFilter}
-                    >
-                        {[
-                            "appointments",
-                            "confirmed",
-                            "rejected",
-                            "completed",
-                            "failed",
-                        ].map((filter) => (
-                            <option key={filter} value={filter}>
-                                {filter.charAt(0).toUpperCase() +
-                                    filter.slice(1)}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
                 <div className="table-container">
                     <table>
                         <thead>
@@ -274,6 +264,7 @@ function Dashboard() {
                                     <tr
                                         key={appointment.id}
                                         className="appointment-list"
+                                        onClick={() => openModal(appointment)} // Open modal on click
                                     >
                                         <td>{`${appointment.first_name} ${appointment.middle_name} ${appointment.last_name}`}</td>
                                         <td>
@@ -297,6 +288,28 @@ function Dashboard() {
                     </table>
                 </div>
             </div>
+
+            {/* Modal to display appointment details */}
+            {isModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <button className="close-btn" onClick={closeModal}>
+                            X
+                        </button>
+                        <h2>Appointment Details</h2>
+                        <p>
+                            Name: {selectedAppointment.first_name}{" "}
+                            {selectedAppointment.middle_name}{" "}
+                            {selectedAppointment.last_name}
+                        </p>
+                        <p>
+                            Date: {formatDate(selectedAppointment.appointDate)}
+                        </p>
+                        <p>Status: {selectedAppointment.status}</p>
+                        {/* Add more fields as necessary */}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -1,6 +1,5 @@
 
 
-@media (max-width: 1920px) {
     .about-container {
         display: flex;
         height: 90vh;
@@ -51,7 +50,6 @@
     }
     
     
-}
 
 @media (max-width: 768px) {
     .about-container {

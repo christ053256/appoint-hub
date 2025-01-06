@@ -85,7 +85,6 @@ body {
     color: #666;
 }
 
-@media (max-width: 1920px) {
     body {
         /* background-color: #a2e3f5; */
         background-color: #e1f0ff;
@@ -279,8 +278,47 @@ body {
     .reject-btn {
         background-color: red;
     }
+
+
+
+  /* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+    max-width: 100%;
+    text-align: center;
+    position: relative; /* To position the 'X' button relative to the modal */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px; /* Move the 'X' button to the top right */
+    background-color: transparent;
+    color: black;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: red; /* Changes color when hovered */
+}
 
 
 @media (max-width: 1440px) {

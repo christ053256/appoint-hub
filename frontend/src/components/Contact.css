@@ -167,8 +167,6 @@
 
 
 
-/* Media query for screens up to 1920px */
-@media (max-width: 1920px) {
     .contact-logo img {
         height: 65px;
     }
@@ -179,7 +177,6 @@
     }
 
     
-}
 
 
 @media (max-width: 768px) {
