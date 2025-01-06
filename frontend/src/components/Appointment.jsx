@@ -380,7 +380,9 @@ function Appointment() {
                                         onChange={handleCity}
                                     />
 
-                                    <label>Contact Number</label>
+                                    <h3 className="contact-no">
+                                        Contact Number
+                                    </h3>
                                     <div className="appointment-contactNo">
                                         <div className="phone-verification-container">
                                             <div className="phone-input-wrapper">

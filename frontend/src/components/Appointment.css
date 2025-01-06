@@ -34,17 +34,17 @@
 .form-container {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  margin-top: 10px;
   border-radius: 20px;
   width: 55%;
-  max-height: 90vh; /* Ensure it doesn’t exceed the viewport height */
+  max-height: 88vh; /* Ensure it doesn’t exceed the viewport height */
   overflow-y: auto; /* Enable vertical scrolling */
   background-color: #fff;
 }
 
 .appointment-title {
-    margin-top: 25px;
-    margin-bottom: 20px;
+    margin-top: 17.5px;
+    margin-bottom: 15px;
     width: 100%;
     clear: both;
     text-align: center;
@@ -68,12 +68,17 @@
 
 }
 
+.contact-no {
+    margin-left: -10px;
+}
+
 .appointment-content input {
     /* margin-top: 10px; */
 height: 22.175px;
 border-radius: 15px;
 border: 1px solid #555;
 padding: 0 0 0 10px;
+font-size: 14px;
 
 
 }
@@ -89,11 +94,21 @@ padding: 0 0 0 10px;
   justify-content: flex-start; /* Align items to the top */
 }
 
+.appointment-left h3 {
+  font-size: 18px;
+}
+
+.appointment-right h3 {
+  font-size: 18px;
+}
+
+
 
 .appointment-right {
     flex: 1;
     
 }
+
 
 
 .appointment-div1 {
@@ -133,6 +148,7 @@ padding: 0 0 0 10px;
     height: 36px;
     flex-shrink: 0;
     margin-bottom: 20px;
+    font-size: 14px;
 }
 
 .send-otp-button {
@@ -151,7 +167,7 @@ padding: 0 0 0 10px;
 /* Hover Effect */
 .send-otp-button,
 .verify-otp-button {
-    font-size: 16px;
+    font-size: 14px;
     margin: 10px;
     width: 130px;
     height: 30px;
@@ -191,7 +207,7 @@ padding: 0 0 0 10px;
 }
 
 .branch-button button {
-    font-size: 16px;
+    font-size: 14px;
     margin: 10px;
     width: 130px;
     height: 30px;
@@ -201,9 +217,6 @@ padding: 0 0 0 10px;
     background-color: #f0f0f0; /* Light gray background */
     color: black; /* Default text color */
     transition: all 0.3s ease;
-
-
-
 }
 
 
@@ -301,6 +314,7 @@ Link {
 
 .phone-input {
     border-radius: 10px;
+    font-size: 14px;
 }
 
 
@@ -355,7 +369,9 @@ Link {
       font-family: 'Outfit', sans-serif;
       font-weight: 400;
     }
-    
+
+ 
+  
     .appointment-content input {
       height: 36px;
       border-radius: 15px;
@@ -411,6 +427,12 @@ Link {
       background-color: #2e3894;
       transform: scale(0.98);
     }
+
+    .appointment-div2 h3 {
+      margin-left: -35px;
+  }
+
+  
 }
 
 
@@ -450,6 +472,16 @@ Link {
       margin-bottom: 20px;
       text-align: center;
       color: #272e6c;
+      font-size: 14px;
+    }
+
+    .appointment-left h3 {
+      font-size: 16px;
+    }
+    
+    .appointment-right h3 {
+      font-size: 16px;
+      
     }
   
     .appointment-content {
@@ -458,6 +490,7 @@ Link {
       gap: 20px;
       width: 100%; /* Ensures full-width alignment within the form */
     }
+    
   
     .appointment-content h3 {
       align-self: flex-start;
@@ -469,17 +502,22 @@ Link {
     
     .appointment-content input {
       height: 36px;
+      font-size: 12px;
       border-radius: 15px;
       border: 1px solid #555;
       padding: 0 10px;
       width: 100%; /* Adjusts inputs to take the full width */
     }
 
+
+  
+
     .appointment-datepicker {
         margin-left: 2.5px;   
         margin-top: 10px;
         width: 350px;
         height: 36px !important; /* Force the height */
+        font-size: 12px;
     
     }
 
@@ -500,14 +538,14 @@ Link {
     .set-appointment-button {
       margin-top: 10px; /* Adds space above the button */
       margin-bottom: 20px; /* Adds space below the button */
-      width: 320px;
+      width: 200px;
       height: 50px;
       border: none;
       border-radius: 20px;
       background: #3946b5;
       color: #fff;
       font-family: 'Outfit', sans-serif;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 500;
       line-height: 1.26;
       letter-spacing: 0.16px;
@@ -522,6 +560,42 @@ Link {
       background-color: #2e3894;
       transform: scale(0.98);
     }
+
+    .phone-input {
+      border-radius: 10px;
+      font-size: 12px;
+  }
+
+  .appointment-div2 h3 {
+}
+
+.send-otp-button,
+.verify-otp-button {
+    font-size: 12px;
+    margin: 10px;
+    width: 100px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 20px;
+    border: 1px solid #727272; /* Border styling */
+    background-color: #f0f0f0; /* Light gray background */
+    color: black; /* Default text color */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+
+.branch-button button {
+  font-size: 12px;
+  margin: 10px;
+  width: 100px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 20px;
+  border: 1px solid #727272; /* Border styling */
+  background-color: #f0f0f0; /* Light gray background */
+  color: black; /* Default text color */
+  transition: all 0.3s ease;
+}
 }
 
 
@@ -562,6 +636,8 @@ Link {
       text-align: center;
       color: #272e6c;
     }
+
+
   
     .appointment-content {
       display: flex;
@@ -579,6 +655,7 @@ Link {
     }
     
     .appointment-content input {
+      font-size: 12px;
       height: 36px;
       border-radius: 15px;
       border: 1px solid #555;
@@ -611,14 +688,14 @@ Link {
     .set-appointment-button {
       margin-top: 10px; /* Adds space above the button */
       margin-bottom: 20px; /* Adds space below the button */
-      width: 320px;
+      width: 200px;
       height: 50px;
       border: none;
       border-radius: 20px;
       background: #3946b5;
       color: #fff;
       font-family: 'Outfit', sans-serif;
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 500;
       line-height: 1.26;
       letter-spacing: 0.16px;
@@ -633,4 +710,8 @@ Link {
       background-color: #2e3894;
       transform: scale(0.98);
     }
+
+    .appointment-div2 h3 {
+      margin-left: 10px;
+  }
 }
