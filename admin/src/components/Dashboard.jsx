@@ -300,10 +300,21 @@ function Dashboard() {
                         <p>
                             Name: {selectedAppointment.first_name}{" "}
                             {selectedAppointment.middle_name}{" "}
-                            {selectedAppointment.last_name}
+                            {selectedAppointment.last_name}{" "}
                         </p>
                         <p>
-                            Date: {formatDate(selectedAppointment.appointDate)}
+                            Address: {selectedAppointment.steetBuilding}{" "}
+                            {selectedAppointment.barangay}{" "}
+                            {selectedAppointment.city}{" "}
+                        </p>
+                        <p>
+                            Phone number: {selectedAppointment.contact_number}
+                        </p>
+                        <p>Service: {selectedAppointment.selectedService} </p>
+                        <p>Branch: {selectedAppointment.selectedBranch} </p>
+                        <p>
+                            Schedule:{" "}
+                            {formatDate(selectedAppointment.appointDate)}
                         </p>
                         <p>Status: {selectedAppointment.status}</p>
                         {/* Add more fields as necessary */}
