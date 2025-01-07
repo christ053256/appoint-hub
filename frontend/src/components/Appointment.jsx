@@ -12,6 +12,11 @@ import "react-phone-input-2/lib/style.css";
 // Import libphonenumber-js
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
+import emailjs from "@emailjs/browser";
+
+// First, add this in your component initialization (outside of any function)
+emailjs.init("32_hmnUTkbX3geQDy");
+
 function Appointment() {
     const [selectedBirthDate, setSelectedBirthDate] = useState("");
     const [selectedAppointmentDate, setSelectedAppointmentDate] =
@@ -25,6 +30,7 @@ function Appointment() {
     const [City, setCity] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [selectedBranch, setBranch] = useState("");
+    const [email, setEmail] = useState("");
     const services = [
         "Braces",
         "Teeth Whitening",
@@ -50,6 +56,15 @@ function Appointment() {
     const [countdown, setCountdown] = useState(30);
 
     const [response, setResponse] = useState(null);
+
+    // Add new state variables for email OTP
+    const [emailOTP, setEmailOTP] = useState("");
+    const [generatedEmailOTP, setGeneratedEmailOTP] = useState("");
+    const [emailOtpVerified, setEmailOtpVerified] = useState(false);
+    const [emailResendDisabled, setEmailResendDisabled] = useState(false);
+    const [emailCountdown, setEmailCountdown] = useState(30);
+    const [showEmailOTPInput, setShowEmailOTPInput] = useState(false);
+    const [emailError, setEmailError] = useState("");
 
     const generateOTP = () => {
         const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
@@ -173,6 +188,97 @@ function Appointment() {
         }
     };
 
+    const generateEmailOTP = () => {
+        const newOTP = Math.floor(100000 + Math.random() * 900000).toString();
+        setGeneratedEmailOTP(newOTP);
+        return newOTP;
+    };
+
+    const isValidEmail = (email) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    };
+
+    const sendEmailOTP = async (emailAddress, otp) => {
+        // In a real application, you would integrate with your email service provider here
+        // For demonstration, we'll simulate the email sending
+        console.log(`Sending OTP ${otp} to email: ${emailAddress}`);
+
+        // Simulate API call delay
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({ success: true });
+            }, 1000);
+        });
+    };
+
+    const handleSendEmailOTP = async (event) => {
+        event.preventDefault();
+
+        if (!email || !isValidEmail(email)) {
+            setEmailError("Please enter a valid email address.");
+            return;
+        }
+
+        setEmailError("");
+        const otp = generateEmailOTP();
+        const message = `Your One-Time Password (OTP) is ${otp}.`;
+        try {
+            // EmailJS template parameters
+            const templateParams = {
+                to_email: email,
+                from_name: "8Care Dental Clinic",
+                subject: "Your OTP",
+                message: message,
+            };
+
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                "service_2hw475m", // Replace with your EmailJS service ID
+                "template_z6erja8", // Replace with your EmailJS template ID
+                templateParams
+            );
+
+            if (response.status === 200) {
+                setShowEmailOTPInput(true);
+                setEmailResendDisabled(true);
+
+                let timer = 30;
+                setEmailCountdown(timer);
+                const interval = setInterval(() => {
+                    timer -= 1;
+                    setEmailCountdown(timer);
+                    if (timer === 0) {
+                        clearInterval(interval);
+                        setEmailResendDisabled(false);
+                    }
+                }, 1000);
+            } else {
+                throw new Error("Failed to send email");
+            }
+        } catch (error) {
+            console.error("Email sending error:", error);
+            setEmailError("Failed to send OTP. Please try again.");
+        }
+    };
+
+    const handleVerifyEmailOTP = (event) => {
+        event.preventDefault();
+        if (emailOTP === generatedEmailOTP) {
+            setEmailOtpVerified(true);
+            setEmailError("");
+        } else {
+            setEmailError("Invalid OTP. Please try again.");
+        }
+    };
+
+    // Update the handleEmail function
+    const handleEmail = (e) => {
+        setEmail(e.target.value);
+        if (emailOtpVerified) {
+            setEmailOtpVerified(false);
+        }
+    };
+
     //navigate
     const navigate = useNavigate();
 
@@ -254,8 +360,8 @@ function Appointment() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!otpVerified) {
-            alert("Please verify your phone number first!");
+        if (!emailOtpVerified) {
+            alert("Please verify your email address first!");
             return;
         }
         if (
@@ -268,7 +374,8 @@ function Appointment() {
             contactNumber &&
             selectedService &&
             selectedBranch &&
-            selectedAppointmentDate
+            selectedAppointmentDate &&
+            email
         ) {
             const appointment = {
                 id: Date.now().toString(),
@@ -285,6 +392,7 @@ function Appointment() {
                 selectedService: selectedService,
                 selectedBranch: selectedBranch,
                 appointmentCreated: Date(),
+                email: email,
             };
 
             try {
@@ -379,114 +487,115 @@ function Appointment() {
                                         value={City}
                                         onChange={handleCity}
                                     />
-
-                                    <h3 className="contact-no">
-                                        Contact Number
-                                    </h3>
-                                    <div className="appointment-contactNo">
-                                        <div className="phone-verification-container">
-                                            <div className="phone-input-wrapper">
-                                                <PhoneInput
-                                                    className="phone-input"
-                                                    country={"ph"}
-                                                    value={contactNumber}
-                                                    onChange={handlePhoneNumber}
-                                                    inputProps={{
-                                                        name: "phone",
-                                                        required: true,
-                                                        autoFocus: true,
-                                                    }}
-                                                    disabled={otpVerified}
-                                                />
-                                                {!otpVerified && (
-                                                    <button
-                                                        onClick={handleSendOTP}
-                                                        disabled={
-                                                            resendDisabled ||
-                                                            !contactNumber ||
-                                                            error
-                                                        }
-                                                        className="send-otp-button"
-                                                    >
-                                                        {resendDisabled
-                                                            ? `Resend in ${countdown}s`
-                                                            : "Send OTP"}
-                                                    </button>
-                                                )}
-                                            </div>
-                                            {error && (
-                                                <div
-                                                    style={{
-                                                        color: "red",
-                                                        marginTop: "10px",
-                                                    }}
-                                                >
-                                                    {error}
-                                                </div>
-                                            )}
-                                            {showOTPInput && !otpVerified && (
-                                                <div className="otp-input-container">
-                                                    <input
-                                                        type="text"
-                                                        maxLength="6"
-                                                        placeholder="Enter OTP"
-                                                        value={otp}
-                                                        onChange={(e) =>
-                                                            setOTP(
-                                                                e.target.value
-                                                            )
-                                                        }
-                                                        className="otp-input"
-                                                    />
-                                                    <button
-                                                        onClick={
-                                                            handleVerifyOTP
-                                                        }
-                                                        className="verify-otp-button"
-                                                    >
-                                                        Verify OTP
-                                                    </button>
-                                                </div>
-                                            )}
-                                            {otpVerified && (
-                                                <div className="verification-success">
-                                                    ✓ Phone number verified
-                                                </div>
-                                            )}
+                                </form>
+                                <h3 className="appointment-date">
+                                    Contact Number
+                                </h3>
+                                <div className="appointment-contactNo">
+                                    <div className="phone-verification-container">
+                                        <div className="phone-input-wrapper">
+                                            <PhoneInput
+                                                className="phone-input"
+                                                country={"ph"}
+                                                value={contactNumber}
+                                                onChange={handlePhoneNumber}
+                                                inputProps={{
+                                                    name: "phone",
+                                                    required: true,
+                                                    autoFocus: true,
+                                                }}
+                                                disabled={otpVerified}
+                                            />
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
 
                         <div className="appointment-right">
+                            <h3 className="appointment-date">Email</h3>
+
+                            <div className="email-verification-container">
+                                <div className="email-input-wrapper">
+                                    <input
+                                        type="email"
+                                        placeholder="Email"
+                                        value={email}
+                                        onChange={handleEmail}
+                                        disabled={emailOtpVerified}
+                                        className="email-input"
+                                    />
+                                    {!emailOtpVerified && (
+                                        <button
+                                            onClick={handleSendEmailOTP}
+                                            disabled={
+                                                emailResendDisabled ||
+                                                !email ||
+                                                !isValidEmail(email)
+                                            }
+                                            className="send-otp-button"
+                                        >
+                                            {emailResendDisabled
+                                                ? `Resend in ${emailCountdown}s`
+                                                : "Send OTP"}
+                                        </button>
+                                    )}
+                                </div>
+
+                                {emailError && (
+                                    <div
+                                        style={{
+                                            color: "red",
+                                            marginTop: "10px",
+                                        }}
+                                    >
+                                        {emailError}
+                                    </div>
+                                )}
+
+                                {showEmailOTPInput && !emailOtpVerified && (
+                                    <div className="otp-input-container">
+                                        <input
+                                            type="text"
+                                            maxLength="6"
+                                            placeholder="Enter Email OTP"
+                                            value={emailOTP}
+                                            onChange={(e) =>
+                                                setEmailOTP(e.target.value)
+                                            }
+                                            className="otp-input"
+                                        />
+                                        <button
+                                            onClick={handleVerifyEmailOTP}
+                                            className="verify-otp-button"
+                                        >
+                                            Verify Email OTP
+                                        </button>
+                                    </div>
+                                )}
+
+                                {emailOtpVerified && (
+                                    <div className="verification-success">
+                                        ✓ Email verified
+                                    </div>
+                                )}
+                            </div>
                             <h3 className="appointment-branch">Branch</h3>
-                            <div className="branch-button">
-                                <button
-                                    onClick={() => handleBranch("Butuan")}
-                                    className={
-                                        selectedBranch === "Butuan"
-                                            ? "active"
-                                            : ""
+                            <div className="branch-select">
+                                <select
+                                    value={selectedBranch}
+                                    className="appointment-services-menu"
+                                    onChange={(e) =>
+                                        handleBranch(e.target.value)
                                     }
                                 >
-                                    Butuan
-                                </button>
-                                <button
-                                    onClick={() => handleBranch("Gingoog")}
-                                    className={
-                                        selectedBranch === "Gingoog"
-                                            ? "active"
-                                            : ""
-                                    }
-                                >
-                                    Gingoog
-                                </button>
+                                    <option value="Butuan">Butuan</option>
+                                    <option value="Gingoog">Gingoog</option>
+                                </select>
                             </div>
                             <h3 className="appointment-date">
                                 Appointment Date
                             </h3>
-
                             <DatePicker
                                 className="appointment-datepicker"
                                 placeholderText="MM/DD/YYYY, HH:MM"
@@ -506,11 +615,9 @@ function Appointment() {
                                 }
                                 minDate={new Date()} // Disallow dates before today
                             />
-
                             <h3 className="appointment-services">
                                 Purpose of Visitation
                             </h3>
-
                             <form>
                                 <label htmlFor="services">
                                     {/* Select Service: */}

@@ -10,6 +10,11 @@ import {
     failedAppointment,
 } from "../firebase";
 
+import emailjs from "@emailjs/browser";
+
+// First, add this in your component initialization (outside of any function)
+emailjs.init("32_hmnUTkbX3geQDy");
+
 function Dashboard() {
     const database = FirebaseConfig();
     const [appointments, setAppointments] = useState([]);
@@ -19,8 +24,15 @@ function Dashboard() {
     const [failedAppts, setFailedAppts] = useState([]);
     const [activeFilter, setActiveFilter] = useState("appointments");
     const [isLoading, setIsLoading] = useState(true);
-    const [selectedAppointment, setSelectedAppointment] = useState(null); // New state for selected appointment
-    const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+    const [selectedAppointment, setSelectedAppointment] = useState(null); // State for selected appointment
+    const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
+    const [emailSending, setEmailSending] = useState(false);
+    // -----------------------------
+    // BRANCH DYNAMIC
+    const [branches, setBranches] = useState(["Butuan", "Gingoog"]); // Initial branch list
+    const [newBranch, setNewBranch] = useState(""); // New branch input
+
+    const [isBranchModalOpen, setIsBranchModalOpen] = useState(false); // Unique modal for branch management
 
     useEffect(() => {
         const handlePastAppointments = async (appointments) => {
@@ -125,12 +137,62 @@ function Dashboard() {
         }
     };
 
+    const handleSendConfirmEmail = async (appointment) => {
+        if (!appointment.email) {
+            console.error("No email address provided for appointment");
+            return false;
+        }
+
+        setEmailSending(true);
+        const formattedDate = formatDate(appointment.appointDate);
+        const message = `Your appointment for ${appointment.selectedService} at our ${appointment.selectedBranch} branch on ${formattedDate} has been confirmed. Please arrive 15 minutes before your scheduled time.`;
+        try {
+            const templateParams = {
+                to_email: appointment.email,
+                from_name: "8care Dental Clinic",
+                to_name: `${appointment.first_name} ${appointment.last_name}`,
+                subject: "Appointment Confirmation - 8Care Dental Clinic",
+                message: message,
+            };
+
+            const response = await emailjs.send(
+                "service_2hw475m",
+                "template_2althz8",
+                templateParams
+            );
+
+            if (response.status === 200) {
+                console.log("Confirmation email sent successfully");
+                return true;
+            } else {
+                throw new Error("Failed to send confirmation email");
+            }
+        } catch (error) {
+            console.error("Error sending confirmation email:", error);
+            return false;
+        } finally {
+            setEmailSending(false);
+        }
+    };
+
     const handleAppointmentAction = async (appointment, action) => {
         try {
             setIsLoading(true);
             switch (action) {
                 case "confirm":
-                    await confirmAppointment(appointment);
+                    const emailSent = await handleSendConfirmEmail(appointment);
+                    if (emailSent) {
+                        await confirmAppointment(appointment);
+                        // You could add a success notification here
+                    } else {
+                        // Handle the case where email failed but you still want to confirm
+                        const confirmAnyway = window.confirm(
+                            "Failed to send confirmation email. Would you like to confirm the appointment anyway?"
+                        );
+                        if (confirmAnyway) {
+                            await confirmAppointment(appointment);
+                        }
+                    }
                     break;
                 case "reject":
                     await rejectAppointment(appointment);
@@ -160,7 +222,7 @@ function Dashboard() {
                             onClick={() =>
                                 handleAppointmentAction(appointment, "complete")
                             }
-                            disabled={isLoading}
+                            disabled={isLoading || emailSending}
                         >
                             Complete
                         </button>
@@ -169,7 +231,7 @@ function Dashboard() {
                             onClick={() =>
                                 handleAppointmentAction(appointment, "fail")
                             }
-                            disabled={isLoading}
+                            disabled={isLoading || emailSending}
                         >
                             Failed
                         </button>
@@ -189,16 +251,16 @@ function Dashboard() {
                             onClick={() =>
                                 handleAppointmentAction(appointment, "confirm")
                             }
-                            disabled={isLoading}
+                            disabled={isLoading || emailSending}
                         >
-                            Confirm
+                            {emailSending ? "Sending..." : "Confirm"}
                         </button>
                         <button
                             className="reject-btn"
                             onClick={() =>
                                 handleAppointmentAction(appointment, "reject")
                             }
-                            disabled={isLoading}
+                            disabled={isLoading || emailSending}
                         >
                             Reject
                         </button>
@@ -207,14 +269,23 @@ function Dashboard() {
         }
     };
 
-    const openModal = (appointment) => {
-        setSelectedAppointment(appointment);
-        setIsModalOpen(true);
+    const openBranchModal = () => {
+        setIsBranchModalOpen(true); // Open the branch management modal
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-        setSelectedAppointment(null);
+    const closeBranchModal = () => {
+        setIsBranchModalOpen(false); // Close the branch management modal
+    };
+
+    const handleAddBranch = () => {
+        if (newBranch && !branches.includes(newBranch)) {
+            setBranches([...branches, newBranch]);
+            setNewBranch("");
+        }
+    };
+
+    const handleRemoveBranch = (branchToRemove) => {
+        setBranches(branches.filter((branch) => branch !== branchToRemove));
     };
 
     if (isLoading) {
@@ -227,13 +298,64 @@ function Dashboard() {
                 <img src={logo} alt="logo" className="logo-img" />
                 <span className="logo-e">8</span>
                 <span className="logo-care">Care</span>
+                <button
+                    onClick={openBranchModal}
+                    className="branch-management-btn"
+                >
+                    Manage Branches
+                </button>
             </nav>
+
+            {/* Branch Management Modal */}
+            {isBranchModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <button
+                            className="close-btn"
+                            onClick={closeBranchModal}
+                        >
+                            X
+                        </button>
+                        <h2>Manage Branches</h2>
+                        <div>
+                            <input
+                                type="text"
+                                value={newBranch}
+                                onChange={(e) => setNewBranch(e.target.value)}
+                                placeholder="Add new branch"
+                            />
+                            <button
+                                onClick={handleAddBranch}
+                                className="add-branch-btn"
+                            >
+                                Add Branch
+                            </button>
+                        </div>
+                        <h3>Existing Branches</h3>
+                        <ul>
+                            {branches.map((branch, index) => (
+                                <li key={index}>
+                                    {branch}{" "}
+                                    <button
+                                        onClick={() =>
+                                            handleRemoveBranch(branch)
+                                        }
+                                        className="remove-branch-btn"
+                                    >
+                                        Remove
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            )}
             <div className="dashboard-contents">
                 <div className="dashboard-background"></div>
 
                 <div className="dashboard-buttons">
                     {[
-                        "appointments",
+                        "pending",
                         "confirmed",
                         "rejected",
                         "completed",
@@ -274,7 +396,7 @@ function Dashboard() {
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>Date</th>
+                                <th>Scheduled Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -310,7 +432,7 @@ function Dashboard() {
             </div>
 
             {/* Modal to display appointment details */}
-            {isModalOpen && (
+            {isModalOpen && selectedAppointment && (
                 <div className="modal">
                     <div className="modal-content">
                         <button className="close-btn" onClick={closeModal}>
@@ -318,26 +440,37 @@ function Dashboard() {
                         </button>
                         <h2>Appointment Details</h2>
                         <p>
-                            Name: {selectedAppointment.first_name}{" "}
+                            <strong>Name: </strong>
+                            {selectedAppointment.first_name}{" "}
                             {selectedAppointment.middle_name}{" "}
                             {selectedAppointment.last_name}{" "}
                         </p>
                         <p>
-                            Address: {selectedAppointment.steetBuilding}{" "}
-                            {selectedAppointment.barangay}{" "}
+                            <strong>Address: </strong>
+                            {selectedAppointment.steetBuilding},{" "}
+                            {selectedAppointment.barangay},{" "}
                             {selectedAppointment.city}{" "}
                         </p>
                         <p>
-                            Phone number: {selectedAppointment.contact_number}
+                            <strong>Phone number: </strong>
+                            {selectedAppointment.contact_number}
                         </p>
-                        <p>Service: {selectedAppointment.selectedService} </p>
-                        <p>Branch: {selectedAppointment.selectedBranch} </p>
                         <p>
-                            Schedule:{" "}
+                            <strong>Email: </strong>
+                            {selectedAppointment.email}
+                        </p>
+                        <p>
+                            <strong>Service: </strong>
+                            {selectedAppointment.selectedService}{" "}
+                        </p>
+                        <p>
+                            <strong>Branch: </strong>
+                            {selectedAppointment.selectedBranch}{" "}
+                        </p>
+                        <p>
+                            <strong>Schedule: </strong>{" "}
                             {formatDate(selectedAppointment.appointDate)}
                         </p>
-                        <p>Status: {selectedAppointment.status}</p>
-                        {/* Add more fields as necessary */}
                     </div>
                 </div>
             )}

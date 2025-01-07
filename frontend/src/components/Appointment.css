@@ -34,17 +34,17 @@
 .form-container {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 20px;
   border-radius: 20px;
   width: 55%;
-  max-height: 88vh; /* Ensure it doesn’t exceed the viewport height */
+  max-height: 85vh; /* Ensure it doesn’t exceed the viewport height */
   overflow-y: auto; /* Enable vertical scrolling */
   background-color: #fff;
 }
 
 .appointment-title {
-    margin-top: 17.5px;
-    margin-bottom: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
     width: 100%;
     clear: both;
     text-align: center;
@@ -203,6 +203,7 @@ font-size: 14px;
 .branch-button {
     display: flex;
     justify-content: center;
+    margin-bottom: 20px;
     
 }
 
@@ -235,11 +236,10 @@ font-size: 14px;
 }
 
 .appointment-branch {
-    margin: 0px 0px 10px 0px;
+    margin-top: 10px;
 }
 
 .appointment-date {
-    margin-top: 20px;
     margin-bottom: 10px;
 }
 
@@ -250,7 +250,7 @@ font-size: 14px;
 }
 
 .appointment-services {
-    margin-top: 20px;
+    margin-top: 30px;
     margin-bottom: 10px;
 }
 
@@ -286,7 +286,7 @@ Link {
 
 .set-appointment-button {
     
-    margin-top: 50px;
+    margin-top: 30px;
     width: 320px;
     height: 50px;
     border: none;
@@ -316,6 +316,18 @@ Link {
     border-radius: 10px;
     font-size: 14px;
 }
+
+
+.email-input-wrapper input, .otp-input-container input {
+  height: 36px;
+  width: 200px;
+
+}
+
+
+
+
+
 
 
 @media (max-width: 1440px) {

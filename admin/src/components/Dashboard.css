@@ -20,7 +20,7 @@ body {
 
 .empty-message {
     margin-top: 50px;
-    text-align: center;-moz-user-modify: ;
+    text-align: center;
     font-style: italic;
     color: gray;
 }
@@ -47,10 +47,24 @@ body {
     display: flex;
     align-items: center;
     padding-left: 50px; /* Optional, you can remove if not needed */
-
+    padding-right: 20px; /* Adds some space on the right */
     z-index: 1000; /* Ensures it stays on top of other elements */
+    justify-content: space-between; /* Distribute items with space between */
 }
 
+.branch-management-btn {
+    margin-left: auto; /* Pushes the button to the rightmost part */
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.branch-management-btn:hover {
+    background-color: #2980b9;
+}
 
 .logo-img {
     height: 54px;
@@ -158,28 +172,79 @@ body {
         padding: 10px 10px; /* Add padding for better button size */
         border: none; /* Remove default border */
         border-radius: 5px; /* Rounded corners */
-        background-color: #4CAF50; /* Green background */
-        color: white; /* White text */
+        background-color: #e5e5e5; /* Grey background for inactive buttons */
+        color: #6f6f6f; /* Light grey text */
         font-size: 14px; /* Font size for text */
         cursor: pointer; /* Pointer cursor on hover */
         transition: all 0.3s ease; /* Smooth hover effects */
     }
     
-    .dashboard-buttons button:hover {
-        background-color: #45a049; /* Slightly darker green on hover */
-    }
-    
-    .dashboard-buttons button:active {
-        background-color: #3e8e41; /* Even darker green on click */
-        transform: scale(0.95); /* Slightly shrink button when clicked */
-    }
-    
-    .dashboard-buttons button:disabled {
-        background-color: #c8c8c8; /* Grey background for disabled buttons */
-        color: #6f6f6f; /* Lighter text for disabled state */
-        cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
+    /* Specific colors for each button */
+
+    .dashboard-buttons button:nth-child(1):hover {
+        background-color: #e68900;
+        color: white    ;
     }
 
+
+
+    .dashboard-buttons button:nth-child(2):hover {
+        background-color: #45a049;
+        color: white    ;
+
+    }
+    
+ 
+
+    
+    .dashboard-buttons button:nth-child(3):hover {
+        background-color: #d7382c;
+        color: white    ;
+
+    }
+
+    
+    .dashboard-buttons button:nth-child(4):hover {
+        background-color: #007bb5 ;
+        color: white    ;
+
+    }
+
+  
+    
+    .dashboard-buttons button:nth-child(5):hover {
+        background-color: #c32014;
+        color: white    ;
+
+    }
+
+    /* Active state styles for each button */
+.dashboard-buttons button:nth-child(1).active {
+    background-color: #e68900; 
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(2).active {
+    background-color: #45a049; /* Static Green */
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(3).active {
+    background-color: #d7382c; /* Static Red */
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(4).active {
+    background-color: #007bb5; /* Static Orange */
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(5).active {
+    background-color: #c32014; /* Static Light Blue */
+    color: white;
+}
+    
+    
 /* Dropdown button styling */
 .dashboard-dropdown {
     display: none; /* Hidden by default */
@@ -199,42 +264,7 @@ body {
     width: 80%; /* Adjust width as needed */
 }
 
- 
-    
-    /* Specific colors for each button */
-    .dashboard-buttons button:nth-child(1) { /* "Confirmed" button */
-        background-color: #008CBA; /* Blue */
-    }
-    
-    .dashboard-buttons button:nth-child(1):hover {
-        background-color: #007bb5;
-    }
-    
-    .dashboard-buttons button:nth-child(2) { /* "All" button */
-        background-color: #4CAF50; /* Green */
-    }
-    
-    .dashboard-buttons button:nth-child(2):hover {
-        background-color: #45a049;
-    }
-    
- 
-    .dashboard-buttons button:nth-child(3) { /* "Rejected" button */
-        background-color: #f44336; /* Red */
-    }
-    
-    .dashboard-buttons button:nth-child(3):hover {
-        background-color: #d7382c;
-    }
-    
-    .dashboard-buttons button:nth-child(4) { /* "Pending" button */
-        background-color: #ff9800; /* Orange */
-    }
-    
-    .dashboard-buttons button:nth-child(4):hover {
-        background-color: #e68900;
-    }
-    
+
 
     .table-container {
         position: relative; /* Keep content positioned properly */
@@ -305,6 +335,12 @@ body {
     position: relative; /* To position the 'X' button relative to the modal */
 }
 
+.modal-content p {
+    text-align: left;
+}
+
+
+
 .close-btn {
     position: absolute;
     top: 10px;
@@ -319,6 +355,121 @@ body {
 .close-btn:hover {
     color: red; /* Changes color when hovered */
 }
+
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Modal Content Styling */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: #333;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #3498db;
+}
+
+/* Heading for Modal */
+.modal-content h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.modal-content h3 {
+    font-size: 18px;
+}
+
+/* Input and Button for Adding Branch */
+.modal-content input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.add-branch-btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.add-branch-btn:hover {
+    background-color: #2980b9;
+}
+
+/* List of Existing Branches */
+.modal-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.modal-content li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.remove-branch-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.remove-branch-btn:hover {
+    background-color: #c0392b;
+}
+
+
+
+
+
+
 
 
 @media (max-width: 1440px) {
@@ -413,66 +564,88 @@ body {
     
     .dashboard-buttons button:disabled {
         background-color: #c8c8c8; /* Grey background for disabled buttons */
-        color: #6f6f6f; /* Lighter text for disabled state */
+        color: #c2a6a6; /* Lighter text for disabled state */
         cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
     }
 
-
-
-    /* STYLINGS FOR EACH BUTTONS */
-    .dashboard-buttons {
-        position: relative;
-        z-index: 2;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin-top: 20px;
-    }
     
     .dashboard-buttons button {
         text-decoration: none;
-        padding: 10px 10px;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        padding: 10px 10px; /* Add padding for better button size */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #e5e5e5; /* Grey background for inactive buttons */
+        color: #6f6f6f; /* Light grey text */
+        font-size: 14px; /* Font size for text */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: all 0.3s ease; /* Smooth hover effects */
     }
     
     /* Specific colors for each button */
-    .dashboard-buttons button:nth-child(1) { /* "Confirmed" button */
-        background-color: #008CBA; /* Blue */
-    }
-    
+
     .dashboard-buttons button:nth-child(1):hover {
-        background-color: #007bb5;
+        background-color: #e68900;
+        color: white    ;
     }
-    
-    .dashboard-buttons button:nth-child(2) { /* "All" button */
-        background-color: #4CAF50; /* Green */
-    }
-    
+
+
+
     .dashboard-buttons button:nth-child(2):hover {
         background-color: #45a049;
+        color: white    ;
+
     }
     
  
-    .dashboard-buttons button:nth-child(3) { /* "Rejected" button */
-        background-color: #f44336; /* Red */
-    }
+
     
     .dashboard-buttons button:nth-child(3):hover {
         background-color: #d7382c;
+        color: white    ;
+
     }
-    
-    .dashboard-buttons button:nth-child(4) { /* "Pending" button */
-        background-color: #ff9800; /* Orange */
-    }
+
     
     .dashboard-buttons button:nth-child(4):hover {
-        background-color: #e68900;
+        background-color: #007bb5 ;
+        color: white    ;
+
     }
+
+  
+    
+    .dashboard-buttons button:nth-child(5):hover {
+        background-color: #c32014;
+        color: white    ;
+
+    }
+
+    /* Active state styles for each button */
+.dashboard-buttons button:nth-child(1).active {
+    background-color: #e68900; 
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(2).active {
+    background-color: #45a049; /* Static Green */
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(3).active {
+    background-color: #d7382c; /* Static Red */
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(4).active {
+    background-color: #007bb5; /* Static Orange */
+    color: white;
+}
+
+.dashboard-buttons button:nth-child(5).active {
+    background-color: #c32014; /* Static Light Blue */
+    color: white;
+}
+    
     
 
     .table-container {
@@ -635,50 +808,16 @@ body {
         gap: 10px;
         margin-top: 20px;
     }
-    
     .dashboard-buttons button {
         text-decoration: none;
-        padding: 10px 10px;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    /* Specific colors for each button */
-    .dashboard-buttons button:nth-child(1) { /* "Confirmed" button */
-        background-color: #008CBA; /* Blue */
-    }
-    
-    .dashboard-buttons button:nth-child(1):hover {
-        background-color: #007bb5;
-    }
-    
-    .dashboard-buttons button:nth-child(2) { /* "All" button */
-        background-color: #4CAF50; /* Green */
-    }
-    
-    .dashboard-buttons button:nth-child(2):hover {
-        background-color: #45a049;
-    }
-    
- 
-    .dashboard-buttons button:nth-child(3) { /* "Rejected" button */
-        background-color: #f44336; /* Red */
-    }
-    
-    .dashboard-buttons button:nth-child(3):hover {
-        background-color: #d7382c;
-    }
-    
-    .dashboard-buttons button:nth-child(4) { /* "Pending" button */
-        background-color: #ff9800; /* Orange */
-    }
-    
-    .dashboard-buttons button:nth-child(4):hover {
-        background-color: #e68900;
+        padding: 10px 10px; /* Add padding for better button size */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #e5e5e5; /* Grey background for inactive buttons */
+        color: #6f6f6f; /* Light grey text */
+        font-size: 14px; /* Font size for text */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: all 0.3s ease; /* Smooth hover effects */
     }
     
 
@@ -847,50 +986,16 @@ body {
     
     .dashboard-buttons button {
         text-decoration: none;
-        padding: 10px 10px;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        padding: 10px 10px; /* Add padding for better button size */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #e5e5e5; /* Grey background for inactive buttons */
+        color: #6f6f6f; /* Light grey text */
+        font-size: 14px; /* Font size for text */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: all 0.3s ease; /* Smooth hover effects */
     }
     
-    /* Specific colors for each button */
-    .dashboard-buttons button:nth-child(1) { /* "Confirmed" button */
-        background-color: #008CBA; /* Blue */
-    }
-    
-    .dashboard-buttons button:nth-child(1):hover {
-        background-color: #007bb5;
-    }
-    
-    .dashboard-buttons button:nth-child(2) { /* "All" button */
-        background-color: #4CAF50; /* Green */
-    }
-    
-    .dashboard-buttons button:nth-child(2):hover {
-        background-color: #45a049;
-    }
-    
- 
-    .dashboard-buttons button:nth-child(3) { /* "Rejected" button */
-        background-color: #f44336; /* Red */
-    }
-    
-    .dashboard-buttons button:nth-child(3):hover {
-        background-color: #d7382c;
-    }
-    
-    .dashboard-buttons button:nth-child(4) { /* "Pending" button */
-        background-color: #ff9800; /* Orange */
-    }
-    
-    .dashboard-buttons button:nth-child(4):hover {
-        background-color: #e68900;
-    }
-    
-
     .table-container {
         position: relative; /* Keep content positioned properly */
         z-index: 2; /* Place above the pseudo-element */
@@ -1054,48 +1159,16 @@ body {
     
     .dashboard-buttons button {
         text-decoration: none;
-        padding: 10px 10px;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        padding: 10px 10px; /* Add padding for better button size */
+        border: none; /* Remove default border */
+        border-radius: 5px; /* Rounded corners */
+        background-color: #e5e5e5; /* Grey background for inactive buttons */
+        color: #6f6f6f; /* Light grey text */
+        font-size: 14px; /* Font size for text */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: all 0.3s ease; /* Smooth hover effects */
     }
     
-    /* Specific colors for each button */
-    .dashboard-buttons button:nth-child(1) { /* "Confirmed" button */
-        background-color: #008CBA; /* Blue */
-    }
-    
-    .dashboard-buttons button:nth-child(1):hover {
-        background-color: #007bb5;
-    }
-    
-    .dashboard-buttons button:nth-child(2) { /* "All" button */
-        background-color: #4CAF50; /* Green */
-    }
-    
-    .dashboard-buttons button:nth-child(2):hover {
-        background-color: #45a049;
-    }
-    
- 
-    .dashboard-buttons button:nth-child(3) { /* "Rejected" button */
-        background-color: #f44336; /* Red */
-    }
-    
-    .dashboard-buttons button:nth-child(3):hover {
-        background-color: #d7382c;
-    }
-    
-    .dashboard-buttons button:nth-child(4) { /* "Pending" button */
-        background-color: #ff9800; /* Orange */
-    }
-    
-    .dashboard-buttons button:nth-child(4):hover {
-        background-color: #e68900;
-    }
     
 
     .table-container {

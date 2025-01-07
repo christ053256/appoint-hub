@@ -9,7 +9,7 @@ function Confirmation() {
             <div className="confirmation-placeholder">
                 <div className="icon-holder">
                     <div className="circle">
-                        <div class="checkmark"></div>
+                        <div className="checkmark"></div>
                     </div>
                 </div>
 
