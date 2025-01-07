@@ -1297,9 +1297,15 @@ body {
         background-color: #e68900;
     }
 
-    .dashboard-dropdown {
-        display: block; /* Show dropdown */
-    }
+  
+/* Dropdown button styling */
+.dashboard-buttons {
+    display: none; /* Hide buttons */
+}
+
+.dashboard-dropdown {
+    display: block; /* Show dropdown */
+}
     
 
     .table-container {

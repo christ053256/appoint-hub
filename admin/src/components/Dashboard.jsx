@@ -249,6 +249,26 @@ function Dashboard() {
                     ))}
                 </div>
 
+                <div className="dashboard-dropdown">
+                    <select
+                        onChange={(e) => setActiveFilter(e.target.value)}
+                        value={activeFilter}
+                    >
+                        {[
+                            "appointments",
+                            "confirmed",
+                            "rejected",
+                            "completed",
+                            "failed",
+                        ].map((filter) => (
+                            <option key={filter} value={filter}>
+                                {filter.charAt(0).toUpperCase() +
+                                    filter.slice(1)}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
                 <div className="table-container">
                     <table>
                         <thead>
