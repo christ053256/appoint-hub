@@ -1,5 +1,5 @@
 // Import necessary Firebase functions
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
 
 // Your Firebase configuration (same as in App.jsx)
@@ -16,10 +16,36 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+export const db = getDatabase(app);
 
 // Export function to send appointment data
 export function sendAppointmentData(appointment) {
     const appointmentRef = ref(db, "appointments/" + appointment.id);
     return set(appointmentRef, appointment);
 }
+
+/**
+ * Fetches all branches from the Firebase database
+ * @returns {Promise<Array>} Array of branch objects
+ */
+export async function fetchBranches() {
+    try {
+        const branchesRef = ref(db, 'branches');
+        const snapshot = await get(branchesRef);
+        
+        if (snapshot.exists()) {
+            // Convert the snapshot to an array of branch objects
+            const branchesData = snapshot.val();
+            return Object.keys(branchesData).map(key => ({
+                name: key,
+                ...branchesData[key]
+            }));
+        }
+        
+        return [];
+    } catch (error) {
+        console.error("Error fetching branches:", error);
+        throw new Error(`Failed to fetch branches: ${error.message}`);
+    }
+}
+

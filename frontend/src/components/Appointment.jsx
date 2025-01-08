@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import "./Appointment.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Default DatePicker styles
-import { sendAppointmentData } from "../firebase";
+import { sendAppointmentData, fetchBranches } from "../firebase";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -56,6 +56,9 @@ function Appointment() {
     const [countdown, setCountdown] = useState(30);
 
     const [response, setResponse] = useState(null);
+
+    const [availableBranches, setAvailableBranches] = useState([]);
+    const [isLoadingBranches, setIsLoadingBranches] = useState(true);
 
     // Add new state variables for email OTP
     const [emailOTP, setEmailOTP] = useState("");
@@ -136,40 +139,6 @@ function Appointment() {
         }
     };
 
-    const handleSendOTP = async (event) => {
-        event.preventDefault(); // Prevent page reload
-        if (!contactNumber) {
-            setError("Please enter a valid contact number.");
-            return;
-        }
-        setError(null);
-
-        const otp = generateOTP();
-        await sendMessage(contactNumber, otp);
-
-        setResendDisabled(true);
-        let timer = 30;
-        setCountdown(timer);
-        const interval = setInterval(() => {
-            timer -= 1;
-            setCountdown(timer);
-            if (timer === 0) {
-                clearInterval(interval);
-                setResendDisabled(false);
-            }
-        }, 1000);
-    };
-
-    const handleVerifyOTP = (event) => {
-        event.preventDefault();
-        if (otp === generatedOTP) {
-            setOtpVerified(true);
-            setError(null);
-        } else {
-            setError("Invalid OTP. Please try again.");
-        }
-    };
-
     const handlePhoneNumber = (value) => {
         // Update the input value directly
         setContactNumber(value);
@@ -196,19 +165,6 @@ function Appointment() {
 
     const isValidEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    };
-
-    const sendEmailOTP = async (emailAddress, otp) => {
-        // In a real application, you would integrate with your email service provider here
-        // For demonstration, we'll simulate the email sending
-        console.log(`Sending OTP ${otp} to email: ${emailAddress}`);
-
-        // Simulate API call delay
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ success: true });
-            }, 1000);
-        });
     };
 
     const handleSendEmailOTP = async (event) => {
@@ -410,15 +366,38 @@ function Appointment() {
 
     // Log the message when it changes
     useEffect(() => {
+        
         if (message.length) {
             console.log(message);
             setMessage(""); // Optional: reset the message after logging it
         }
     }, [message]); // This hook will run every time `message` changes
-
     setTimeout(() => {
         setMessage("");
     }, 1500);
+
+    const loadBranches = async () => {
+        try {
+            setIsLoadingBranches(true);
+            const branchesData = await fetchBranches();
+            const branchNames = branchesData.map(branch => branch.name);
+            setAvailableBranches(branchNames);
+            
+            // Set default selected branch if none is selected
+            if (!selectedBranch && branchNames.length > 0) {
+                handleBranch(branchNames[0]);
+            }
+        } catch (error) {
+            console.error("Error loading branches:", error);
+        } finally {
+            setIsLoadingBranches(false);
+        }
+    };
+
+    // Use effect to trigger the loading of branches on component mount
+    useEffect(() => {
+        loadBranches(); 
+    }, []);
 
     //handleSubmit--- nalang need dataBase
     //console.log(typeof Date());
@@ -582,16 +561,25 @@ function Appointment() {
                             </div>
                             <h3 className="appointment-branch">Branch</h3>
                             <div className="branch-select">
-                                <select
-                                    value={selectedBranch}
-                                    className="appointment-services-menu"
-                                    onChange={(e) =>
-                                        handleBranch(e.target.value)
-                                    }
-                                >
-                                    <option value="Butuan">Butuan</option>
-                                    <option value="Gingoog">Gingoog</option>
-                                </select>
+                                {isLoadingBranches ? (
+                                    <div>Loading branches...</div>
+                                ) : (
+                                    <select
+                                        value={selectedBranch}
+                                        className="appointment-services-menu"
+                                        onChange={(e) => handleBranch(e.target.value)}
+                                    >
+                                        {availableBranches.length === 0 ? (
+                                            <option value="">No branches available</option>
+                                        ) : (
+                                            availableBranches.map((branch) => (
+                                                <option key={branch} value={branch}>
+                                                    {branch}
+                                                </option>
+                                            ))
+                                        )}
+                                    </select>
+                                )}
                             </div>
                             <h3 className="appointment-date">
                                 Appointment Date

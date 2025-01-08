@@ -1,5 +1,5 @@
 // Import necessary Firebase functions
-import { getDatabase, ref, set, remove } from "firebase/database";
+import { getDatabase, ref, set, remove, get } from "firebase/database";
 import { initializeApp } from "firebase/app";
 
 // Your Firebase configuration (same as in App.jsx)
@@ -89,5 +89,90 @@ export async function failedAppointment(appointment) {
         console.log("Appointment moved to failed and removed from confirmed.");
     } catch (error) {
         console.error("Error marking appointment as failed:", error);
+    }
+}
+
+
+/**
+ * Adds or updates a branch in the database
+ * @param {string} branchName - The name of the branch to add/update
+ * @returns {Promise<void>}
+ */
+export async function sendBranches(branchName) {
+    if (!branchName) {
+        throw new Error("Branch name is required");
+    }
+
+    try {
+        // Create a reference to the branch location in the database
+        const branchRef = ref(db, `branches/${branchName}`);
+
+        // Prepare the data to be saved
+        const branchData = {
+            name: branchName,
+            createdAt: new Date().toISOString(),
+            active: true
+        };
+
+        // Write the branch data to the database
+        await set(branchRef, branchData);
+
+        console.log(`Branch "${branchName}" has been successfully added`);
+        return true;
+
+    } catch (error) {
+        console.error("Error adding branch:", error);
+        throw new Error(`Failed to add branch: ${error.message}`);
+    }
+}
+
+/**
+ * Removes a branch from the database
+ * @param {string} branchName - The name of the branch to remove
+ * @returns {Promise<void>}
+ */
+export async function removeBranches(branchName) {
+    if (!branchName) {
+        throw new Error("Branch name is required");
+    }
+
+    try {
+        // Create a reference to the branch location in the database
+        const branchRef = ref(db, `branches/${branchName}`);
+        
+        // Remove the branch from the database
+        await set(branchRef, null);
+
+        console.log(`Branch "${branchName}" has been successfully removed`);
+        return true;
+
+    } catch (error) {
+        console.error("Error removing branch:", error);
+        throw new Error(`Failed to remove branch: ${error.message}`);
+    }
+}
+
+/**
+ * Fetches all branches from the Firebase database
+ * @returns {Promise<Array>} Array of branch objects
+ */
+export async function fetchBranches() {
+    try {
+        const branchesRef = ref(db, 'branches');
+        const snapshot = await get(branchesRef);
+        
+        if (snapshot.exists()) {
+            // Convert the snapshot to an array of branch objects
+            const branchesData = snapshot.val();
+            return Object.keys(branchesData).map(key => ({
+                name: key,
+                ...branchesData[key]
+            }));
+        }
+        
+        return [];
+    } catch (error) {
+        console.error("Error fetching branches:", error);
+        throw new Error(`Failed to fetch branches: ${error.message}`);
     }
 }
